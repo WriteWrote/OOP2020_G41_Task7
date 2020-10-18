@@ -1,6 +1,7 @@
 package com.company;
 
 import com.company.products.Countable;
+import com.company.products.Description;
 import com.company.products.Product;
 import com.company.products.Uncountable;
 
@@ -24,11 +25,15 @@ public class Main {
         }*/
         Stock stock = new Stock();
         Uncountable milk = (Uncountable) Product.Milk.getDescription(100, 100);
-        if (stock.getCapacity() - stock.getStock().get(milk.getName()) < milk.getWeight()) {
+        if (stock.getCapacity() - stock.get(milk.getName()) < milk.getQuantity()) {
             stock.add(milk.getName(), stock.getCapacity());
         } else {
             int a = stock.getStock().get(milk.getName());
-            stock.add(milk.getName(), a + milk.getWeight());
+            stock.add(milk.getName(), a + milk.getQuantity());
         }
+        Description description = Product.Drink.getDescription(0, 5);
+        int b = description.getQuantity();
+        description = Product.Alcohol.getDescription(0, 2);
+        b = description.getQuantity();
     }
 }

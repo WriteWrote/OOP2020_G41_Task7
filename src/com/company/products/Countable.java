@@ -8,6 +8,7 @@ public class Countable extends Description {
         this.quantity = quantity;
     }
 
+    @Override
     public int getQuantity() {
         return quantity;
     }

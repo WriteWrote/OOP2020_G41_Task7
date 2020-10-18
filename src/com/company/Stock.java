@@ -29,19 +29,24 @@ public class Stock {
         return map;
     }
 
-    public Map<Product, Integer> getStock() {
+    Map<Product, Integer> getStock() {
         return stock;
     }
 
-    public int getCapacity() {
+    int getCapacity() {
         return capacity;
     }
 
-    public void add(Product name, int quantity) {
-        //if (stock.containsKey(name)){
-        //       int prevQ =
+    Integer get(Product product) {
+        return stock.get(product);
+    }
 
-        //}
+    void addAll(Map<Product, Integer> newMap) {
+        this.stock.putAll(newMap);
+    }
+
+    void add(Product name, int quantity) {
+
         this.stock.put(name, quantity);
     }
 }

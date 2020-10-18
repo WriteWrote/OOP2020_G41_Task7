@@ -24,4 +24,7 @@ public abstract class Description {
     public int getExpirationDays() {
         return expirationDays;
     }
+    public int getQuantity(){
+        return 0;
+    }
 }

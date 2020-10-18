@@ -1,26 +1,26 @@
 package com.company;
 
 import com.company.products.Description;
+import com.company.products.Product;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-public class Events {
-    public static List<Customer> newCustomersComing() {
+class Events {
+    static LinkedList<Customer> newCustomersComing() {
 
-        return new ArrayList<>();
+        return new LinkedList<>();
     }
 
-    public static List<Description> productsAdmission() {
+    static Map<Product, Integer> productsAdmission() {
 
-        return new ArrayList<>();
+        return new HashMap<>();
     }
 
-    public static /*?*/ void priceFall() {
+    static /*?*/ void priceFall() {
 
     }
 
-    public static /*?*/ void dayPassing() {
+    static /*?*/ void dayPassing() {
 
     }
 }

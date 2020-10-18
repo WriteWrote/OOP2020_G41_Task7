@@ -1,6 +1,6 @@
 package com.company.products;
 
-public class Uncountable extends Description{
+public class Uncountable extends Description {
     private int weight;
 
     public Uncountable(Product name, int price, int weight) {
@@ -8,7 +8,8 @@ public class Uncountable extends Description{
         this.weight = weight;
     }
 
-    public int getWeight() {
+    @Override
+    public int getQuantity() {
         return weight;
     }
 
