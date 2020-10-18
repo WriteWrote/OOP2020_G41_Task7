@@ -1,9 +1,7 @@
 package com.company.customers;
 
 import com.company.Customer;
-import com.company.ExampleProduct;
-
-import java.time.temporal.ChronoUnit;
+import com.company.products.Product;
 
 public class MiddleAgeMale extends Customer {
     public MiddleAgeMale(double money) {
@@ -17,10 +15,10 @@ public class MiddleAgeMale extends Customer {
     }
 
     private void generatePersonalDesires() {
-        scaleOfDesires.put(ExampleProduct.Meat, (int) (Math.random() * (10 - 6) + 6));
-        scaleOfDesires.put(ExampleProduct.Cheese, (int) (Math.random() * (10 - 6) + 6));
-        scaleOfDesires.put(ExampleProduct.Sausage, (int) (Math.random() * (10 - 6) + 6));
-        scaleOfDesires.put(ExampleProduct.Alcohol, (int) (Math.random() * (10 - 6) + 6));
-        scaleOfDesires.put(ExampleProduct.Toiletry, (int) (Math.random() * (10 - 6) + 6));
+        scaleOfDesires.put(Product.Meat, (int) (Math.random() * (10 - 6) + 6));
+        scaleOfDesires.put(Product.Cheese, (int) (Math.random() * (10 - 6) + 6));
+        scaleOfDesires.put(Product.Sausage, (int) (Math.random() * (10 - 6) + 6));
+        scaleOfDesires.put(Product.Alcohol, (int) (Math.random() * (10 - 6) + 6));
+        scaleOfDesires.put(Product.Toiletry, (int) (Math.random() * (10 - 6) + 6));
     }
 }

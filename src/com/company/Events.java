@@ -1,6 +1,7 @@
 package com.company;
 
-import javax.sound.sampled.Line;
+import com.company.products.Description;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,7 @@ public class Events {
         return new ArrayList<>();
     }
 
-    public static List<Product> productsAdmission() {
+    public static List<Description> productsAdmission() {
 
         return new ArrayList<>();
     }

@@ -1,11 +1,11 @@
-package com.company;
+package com.company.products;
 
-public abstract class Product {
+public abstract class Description {
     private String name;
     private int weight, price, quantity;
     protected int expirationDays;
 
-    public Product(String name, int weight, int price, int quantity) {
+    public Description(String name, int weight, int price, int quantity) {
         this.name = name;
         this.weight = weight;
         this.price = price;

@@ -1,7 +1,7 @@
 package com.company.customers;
 
 import com.company.Customer;
-import com.company.ExampleProduct;
+import com.company.products.Product;
 
 public class OldFemale extends Customer {
     public OldFemale(double money) {
@@ -14,11 +14,11 @@ public class OldFemale extends Customer {
     }
 
     private void generatePersonalDesires() {
-        scaleOfDesires.put(ExampleProduct.Milk, (int) (Math.random() * (10 - 6) + 6));
-        scaleOfDesires.put(ExampleProduct.Vegetables, (int) (Math.random() * (10 - 6) + 6));
-        scaleOfDesires.put(ExampleProduct.Drink, (int) (Math.random() * (10 - 6) + 6));
-        scaleOfDesires.put(ExampleProduct.Bread, (int) (Math.random() * (10 - 6) + 6));
-        scaleOfDesires.put(ExampleProduct.Papers, (int) (Math.random() * (10 - 6) + 6));
-        scaleOfDesires.put(ExampleProduct.Clothes, (int) (Math.random() * (10 - 6) + 6));
+        scaleOfDesires.put(Product.Milk, (int) (Math.random() * (10 - 6) + 6));
+        scaleOfDesires.put(Product.Vegetables, (int) (Math.random() * (10 - 6) + 6));
+        scaleOfDesires.put(Product.Drink, (int) (Math.random() * (10 - 6) + 6));
+        scaleOfDesires.put(Product.Bread, (int) (Math.random() * (10 - 6) + 6));
+        scaleOfDesires.put(Product.Papers, (int) (Math.random() * (10 - 6) + 6));
+        scaleOfDesires.put(Product.Clothes, (int) (Math.random() * (10 - 6) + 6));
     }
 }

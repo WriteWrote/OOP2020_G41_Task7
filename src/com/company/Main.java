@@ -1,7 +1,6 @@
 package com.company;
 
-import com.company.customers.YoungFemale;
-import com.company.products.Papers;
+import com.company.products.Product;
 
 public class Main {
 
@@ -9,7 +8,7 @@ public class Main {
         // write your code here
         System.out.println("Hello world!");
 
-        Papers paper = new Papers("Magazine", 0, 100, 150);
+        /*Papers paper = new Papers("Magazine", 0, 100, 150);
         ExampleProduct n = ExampleProduct.Papers;
         String c = paper.getClass().toString();
         String s = c.substring(c.length() - n.toString().length(), c.length());
@@ -20,6 +19,7 @@ public class Main {
         for (var l :
                 girl.getScaleOfDesires().entrySet()) {
             System.out.println(l.getKey() + " - " + l.getValue());
-        }
+        }*/
+
     }
 }
