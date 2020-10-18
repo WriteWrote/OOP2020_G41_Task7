@@ -44,4 +44,9 @@ public enum Product {
             return 365;
         return 3650;
     }
+    public Description getDescription (int price, int quantity){
+        if (this.equals(Cheese))
+            return new Countable(this, price, quantity);
+        return new Uncountable(this, price, quantity);
+    }
 }

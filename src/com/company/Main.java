@@ -1,6 +1,8 @@
 package com.company;
 
+import com.company.products.Countable;
 import com.company.products.Product;
+import com.company.products.Uncountable;
 
 public class Main {
 
@@ -20,6 +22,13 @@ public class Main {
                 girl.getScaleOfDesires().entrySet()) {
             System.out.println(l.getKey() + " - " + l.getValue());
         }*/
-
+        Stock stock = new Stock();
+        Uncountable milk = (Uncountable) Product.Milk.getDescription(100, 100);
+        if (stock.getCapacity() - stock.getStock().get(milk.getName()) < milk.getWeight()) {
+            stock.add(milk.getName(), stock.getCapacity());
+        } else {
+            int a = stock.getStock().get(milk.getName());
+            stock.add(milk.getName(), a + milk.getWeight());
+        }
     }
 }

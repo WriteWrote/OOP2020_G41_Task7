@@ -1,31 +1,24 @@
 package com.company.products;
 
 public abstract class Description {
-    private String name;
-    private int weight, price, quantity;
+    private Product name;//?
+    private int price;
     protected int expirationDays;
 
-    public Description(String name, int weight, int price, int quantity) {
+    public Description(Product name, int price) {
         this.name = name;
-        this.weight = weight;
         this.price = price;
-        this.quantity = quantity;
     }
 
-    public String getName() {
+    public Product getName() {
         return name;
-    }
-
-    public int getWeight() {
-        return weight;
     }
 
     public int getPrice() {
         return price;
     }
-
-    public int getQuantity() {
-        return quantity;
+    public void setPrice(){
+        this.price = price;
     }
 
     public int getExpirationDays() {
