@@ -6,25 +6,26 @@ import com.company.products.ProductType;
 import java.util.*;
 
 public class EventUtils {
-    static void eventService() {
 
-    }
-
-    static LinkedList<Customer> joiningCustomers() {
+    public static LinkedList<Customer> joiningCustomers() {
 
         return new LinkedList<>();
     }
 
-    static Map<ProductType, Integer> productsAdmission() {
+    public static Map<ProductType, Integer> productsAdmission() {
 
         return new HashMap<>();
     }
 
-    static void priceFall() {
+    public static void priceFall() {
 
     }
 
-    static EventType addEvent() {
+    public static void deleteExpProducts() {
+
+    }
+
+    public static EventType castEvent() {
         return EventType.values()[(int) (Math.random() * ProductType.values().length)];
     }
 }
