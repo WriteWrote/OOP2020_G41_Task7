@@ -1,19 +1,36 @@
 package com.company.products;
 
-public class Countable extends Description {
-    private int quantity;
+public class Countable{
+    private String name;
+    private ProductType productType;
+    private int price, partialWeight, quantity, expirationDays;
 
-    public Countable(Product name, int price, int quantity) {
-        super(name, price);
+    public Countable(String name, ProductType productType, int price, int partialWeight, int quantity, int expirationDays) {
+        this.name = name;
+        this.productType = productType;
+        this.price = price;
+        this.partialWeight = partialWeight;
         this.quantity = quantity;
+        this.expirationDays = expirationDays;
     }
 
-    @Override
+    public ProductType getProductType() {
+        return productType;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public int getExpirationDays() {
+        return expirationDays;
+    }
+
     public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public int getPartialWeight() {
+        return partialWeight;
     }
 }

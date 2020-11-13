@@ -1,13 +1,13 @@
 package com.company;
 
-import com.company.products.Product;
+import com.company.products.ProductType;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class Customer {
+public class Customer {
     private double money;
-    protected Map<Product, Integer> scaleOfDesires;
+    protected Map<ProductType, Integer> scaleOfDesires;
 
     public Customer(double money) {
         this.money = money;
@@ -18,15 +18,15 @@ public abstract class Customer {
         return money;
     }
 
-    public Map<Product, Integer> getScaleOfDesires() {
+    public Map<ProductType, Integer> getScaleOfDesires() {
         return scaleOfDesires;
     }
 
 
-    private Map<Product, Integer> generateSimpleDesires() {
-        HashMap<Product, Integer> scaleOfDesires = new HashMap<>();
-        for (int i = 0; i < Math.random() * Product.getSize(); i++) {
-            scaleOfDesires.put(Product.getRandomName(), (int)(Math.random()*5+1));
+    private Map<ProductType, Integer> generateSimpleDesires() {
+        HashMap<ProductType, Integer> scaleOfDesires = new HashMap<>();
+        for (int i = 0; i < Math.random() * ProductType.getSize(); i++) {
+            scaleOfDesires.put(ProductType.getRandomName(), (int)(Math.random()*9+1));
         }
         return scaleOfDesires;
     }

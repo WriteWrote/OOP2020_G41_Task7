@@ -4,7 +4,7 @@ Supermarket
 Leaving the idea of using classes descriptioning goods. Better idea: get Enum with string of products, then create two classes like "Description".
 Transmit there all characteristics for countable and uncountable goods. Maybe make several enums, and for any create method like "get expiration days".
 That would be nice.
-When creating new batch of product, all that needed are just:
+When creating new batch of productType, all that needed are just:
     1. randomly generated name from enum
     2. new Description
     3. randomly generated quantity.
