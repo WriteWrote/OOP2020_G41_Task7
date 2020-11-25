@@ -7,7 +7,8 @@ public class Main {
     public static void main(String[] args) {
         // write your code here
         System.out.println("Hello world!");
-
+        Supermarket supermarket = new Supermarket();
+        Supermarket.runSupermarket();
 /*
         Stock stock = new Stock();
         Uncountable milk = (Uncountable) ProductType.Milk.getDescription(100, 100);

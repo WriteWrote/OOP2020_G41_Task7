@@ -21,11 +21,19 @@ public class Uncountable{
         return price;
     }
 
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
     public int getExpirationDays() {
         return expirationDays;
     }
 
     public int getWeight() {
         return weight;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
     }
 }
