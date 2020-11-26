@@ -33,6 +33,10 @@ public class Uncountable {
         return expirationDays;
     }
 
+    public void setExpirationDays(int expirationDays) {
+        this.expirationDays = expirationDays;
+    }
+
     public int getWeight() {
         return weight;
     }

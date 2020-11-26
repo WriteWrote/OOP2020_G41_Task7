@@ -15,12 +15,15 @@ public class EventService {
     public static void runSupermarket(Supermarket supermarket) throws InterruptedException {
         Queue<EventType> events = supermarket.getEvents();
         events.add(EventType.ProductsAdmission);
-        //events.add(EventType.ProductsAdmission);
-        //events.add(EventType.ProductsToTheShoppingRoom);
+        events.add(EventType.ProductsAdmission);
+
+        events.add(EventType.ProductsToTheShoppingRoom);
         events.add(EventType.JoiningCustomers);
         //events.add(EventType.PriceFall);
-        //events.add(EventType.DeleteExpProducts);
-
+        events.add(EventType.JoiningCustomers);
+        events.add(EventType.ProductsToTheShoppingRoom);
+        events.add(EventType.PriceFall);
+        events.add(EventType.DeleteExpProducts);
         //events.add(EventService.castEvent());
 
         while (events.size() > 0) {
@@ -47,7 +50,7 @@ public class EventService {
                 case ProductsAdmission: {
                     System.out.println("ProductAdmission");
                     Warehouse admission = EventService.generateProducts();
-                    supermarket.getStock().getСountableMap().putAll(admission.getСountableMap());
+                    supermarket.getStock().getCountableMap().putAll(admission.getCountableMap());
                     supermarket.getStock().getUncountableMap().putAll(admission.getUncountableMap());
                 }
                 case ProductsToTheShoppingRoom: {
@@ -56,6 +59,7 @@ public class EventService {
                 break;
             }
             TimeUnit.SECONDS.sleep(1);
+            EventService.decreaseExpirationDays(supermarket);
             /*} else {
                 for (int i = 0; i < (int) (Math.random() * 50 + 1); i++)
                     events.add(EventService.castEvent());
@@ -102,7 +106,7 @@ public class EventService {
 
     public static void priceFall(Warehouse shoppingRoom) {
         for (Countable v :
-                shoppingRoom.getСountableMap().values()) {
+                shoppingRoom.getCountableMap().values()) {
             if (v.getExpirationDays() < 5) {
                 v.setPrice(v.getPrice() / 2);
             }
@@ -116,9 +120,9 @@ public class EventService {
     }
 
     public static void deleteExpProducts(Warehouse shoppingRoom) {
-        shoppingRoom.getСountableMap().entrySet().removeIf(entry -> entry.getValue().getExpirationDays() <= 0
+        shoppingRoom.getCountableMap().entrySet().removeIf(entry -> entry.getValue().getExpirationDays() <= 0
                 || entry.getValue().getQuantity() == 0);
-        shoppingRoom.getUncountableMap().entrySet().removeIf(entry -> entry.getValue().getExpirationDays() <= 0
+        shoppingRoom.getUncountableMap().entrySet().removeIf(entry -> entry.getValue().getExpirationDays() <=0
                 || entry.getValue().getWeight() == 0);
     }
 
@@ -137,8 +141,8 @@ public class EventService {
                 int w = shop.getUncountableMap().get(entry.getKey()).getWeight();
                 int exp = shop.getUncountableMap().get(entry.getKey()).getExpirationDays();
                 String name = shop.getUncountableMap().get(entry.getKey()).getName();
-                description = new Uncountable(name, shop.getСountableMap().get(entry.getKey()).getProductType(),
-                        price,w, exp);
+                description = new Uncountable(name, shop.getUncountableMap().get(entry.getKey()).getProductType(),
+                        price, w, exp);
             } else {
                 //либо создаем новую, если такой нет
                 description = new Uncountable(entry.getValue().getName(), entry.getValue().getProductType(),
@@ -168,18 +172,18 @@ public class EventService {
             shop.getUncountableMap().put(entry.getKey(), description);
         }
 
-        Iterator<Map.Entry<ProductType, Countable>> iC = stock.getСountableMap().entrySet().iterator();
+        Iterator<Map.Entry<ProductType, Countable>> iC = stock.getCountableMap().entrySet().iterator();
         while (iC.hasNext()) {
             Map.Entry<ProductType, Countable> entry = iC.next();
             Countable description;
             // либо достаем из торгового зала уже существующую позицию
-            if (shop.getUncountableMap().containsKey(entry.getKey())) {
-                int price = shop.getСountableMap().get(entry.getKey()).getPrice();
-                int q = shop.getСountableMap().get(entry.getKey()).getQuantity();
-                int exp = shop.getСountableMap().get(entry.getKey()).getExpirationDays();
-                int partW = shop.getСountableMap().get(entry.getKey()).getPartialWeight();
-                String name = shop.getСountableMap().get(entry.getKey()).getName();
-                description = new Countable(name, shop.getСountableMap().get(entry.getKey()).getProductType(),
+            if (shop.getCountableMap().containsKey(entry.getKey())) {
+                int price = shop.getCountableMap().get(entry.getKey()).getPrice();
+                int q = shop.getCountableMap().get(entry.getKey()).getQuantity();
+                int exp = shop.getCountableMap().get(entry.getKey()).getExpirationDays();
+                int partW = shop.getCountableMap().get(entry.getKey()).getPartialWeight();
+                String name = shop.getCountableMap().get(entry.getKey()).getName();
+                description = new Countable(name, shop.getCountableMap().get(entry.getKey()).getProductType(),
                         price, partW, q, exp);
             } else {
                 //либо создаем новую, если такой нет
@@ -208,8 +212,26 @@ public class EventService {
                 }
             }
             // если description - измененная ссылка на объект, то put() заменит предыдущую запись собой
-            shop.getСountableMap().put(entry.getKey(), description);
+            shop.getCountableMap().put(entry.getKey(), description);
 
+        }
+    }
+
+    public static void decreaseExpirationDays(Supermarket supermarket) {
+        for (Countable p : supermarket.getStock().getCountableMap().values()) {
+            p.setExpirationDays(p.getExpirationDays() - 1);
+        }
+        for (Uncountable p :
+                supermarket.getStock().getUncountableMap().values()) {
+            p.setExpirationDays(p.getExpirationDays() - 1);
+        }
+        for (Countable p :
+                supermarket.getShop().getCountableMap().values()) {
+            p.setExpirationDays(p.getExpirationDays() - 1);
+        }
+        for (Uncountable p :
+                supermarket.getShop().getUncountableMap().values()) {
+            p.setExpirationDays(p.getExpirationDays() - 1);
         }
     }
 }

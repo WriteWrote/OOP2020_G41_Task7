@@ -7,7 +7,7 @@ import java.util.Queue;
 
 public class Supermarket {
     private Warehouse stock = new Warehouse();
-    private Warehouse shoppingRoom = new Warehouse();
+    private Warehouse shop = new Warehouse();
     private List<Customer> customers = new LinkedList<>();
     private Queue<EventType> events = new LinkedList<>();
 
@@ -19,7 +19,7 @@ public class Supermarket {
     }
 
     public Warehouse getShop() {
-        return shoppingRoom;
+        return shop;
     }
 
     public List<Customer> getCustomers() {

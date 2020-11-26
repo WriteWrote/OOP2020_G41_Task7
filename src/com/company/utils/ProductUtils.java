@@ -2,11 +2,7 @@ package com.company.utils;
 
 import com.company.products.ProductType;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class ProductUtils {
-    //    private Map<ProductType, Integer> expirationDays = new HashMap<>();
     public static ProductType getRandomProductType() {
         return ProductType.values()[(int) (Math.random() * (ProductType.values().length - 1))];
     }

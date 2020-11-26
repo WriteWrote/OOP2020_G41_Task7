@@ -17,19 +17,6 @@ public class Warehouse {
         uncountableMap = new HashMap<>();
     }
 
-    /*Countable getCountableProduct(ProductType productType) {
-        return countableMap.get(productType);
-    }*/
-
-    /*Uncountable getUncountableProduct(ProductType productType) {
-        return uncountableMap.get(productType);
-    }*/
-
-    public void addAll(Map<ProductType, Countable> countable, Map<ProductType, Uncountable> uncountable) {
-        countableMap.putAll(countable);
-        uncountableMap.putAll(uncountable);
-    }
-
     public void setCountableMap(Map<ProductType, Countable> countableMap) {
         this.countableMap = countableMap;
     }
@@ -38,7 +25,7 @@ public class Warehouse {
         this.uncountableMap = uncountableMap;
     }
 
-    public Map<ProductType, Countable> getСountableMap() {
+    public Map<ProductType, Countable> getCountableMap() {
         return countableMap;
     }
 

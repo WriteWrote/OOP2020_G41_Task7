@@ -34,6 +34,10 @@ public class Countable {
         return expirationDays;
     }
 
+    public void setExpirationDays(int expirationDays) {
+        this.expirationDays = expirationDays;
+    }
+
     public int getQuantity() {
         return quantity;
     }
