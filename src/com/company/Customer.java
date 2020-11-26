@@ -1,10 +1,8 @@
 package com.company;
 
 import com.company.products.ProductType;
-import com.company.utils.ProductUtils;
-import com.company.utils.ServiceUtils;
+import com.company.utils.CustomerUtils;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class Customer {
@@ -13,7 +11,7 @@ public class Customer {
 
     public Customer(double money) {
         this.money = money;
-        scaleOfDesires = ServiceUtils.generateSimpleDesires();
+        scaleOfDesires = CustomerUtils.generateSimpleDesires();
     }
 
     public double getMoney() {

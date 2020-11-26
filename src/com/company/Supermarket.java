@@ -1,54 +1,32 @@
 package com.company;
 
-import com.company.utils.EventType;
-import com.company.utils.EventService;
-
+import com.company.events.EventType;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 public class Supermarket {
+    private Warehouse stock = new Warehouse();
+    private Warehouse shoppingRoom = new Warehouse();
+    private List<Customer> customers = new LinkedList<>();
+    private Queue<EventType> events = new LinkedList<>();
+
     public Supermarket() {
     }
 
-    public static void runSupermarket() {
-        Warehouse stock = new Warehouse();
-        Warehouse shoppingRoom = new Warehouse();
-        Queue<Customer> customers = new LinkedList<>();
-        Queue<EventType> events = new LinkedList<>();
+    public Warehouse getStock() {
+        return stock;
+    }
 
-        events.add(EventType.ProductsAdmission);
-        events.add(EventService.castEvent());
+    public Warehouse getShop() {
+        return shoppingRoom;
+    }
 
-        while (events.size() > 0) {
-            if (events.size() > 1) {
-                switch (events.poll()) {
-                    case PriceFall: {
-                        System.out.println("PriceFall");
-                        EventService.priceFall(shoppingRoom);
-                    }
-                    break;
-                    case JoiningCustomers: {
-                        System.out.println("JoiningCustomers");
-                        customers.addAll(EventService.generateCustomers());
-                    }
-                    break;
-                    case DeleteExpProducts: {
-                        System.out.println("deleteExpProducts");
-                        EventService.deleteExpProducts(shoppingRoom);
-                    }
-                    break;
-                    case ProductsAdmission: {
-                        System.out.println("ProductAdmission");
-                        Warehouse admission = EventService.generateProducts();
-                        stock.getСountableMap().putAll(admission.getСountableMap());
-                        stock.getUncountableMap().putAll(admission.getUncountableMap());
-                    }
-                    break;
-                }
-            } else {
-                for (int i = 0; i < (int) (Math.random() * 50 + 1); i++)
-                    events.add(EventService.castEvent());
-            }
-        }
+    public List<Customer> getCustomers() {
+        return customers;
+    }
+
+    public Queue<EventType> getEvents() {
+        return events;
     }
 }

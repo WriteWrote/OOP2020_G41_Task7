@@ -1,8 +1,9 @@
-package com.company.utils;
+package com.company.events;
 
 public enum EventType {
     JoiningCustomers,
     PriceFall,
     ProductsAdmission,
-    DeleteExpProducts
+    DeleteExpProducts,
+    ProductsToTheShoppingRoom
 }

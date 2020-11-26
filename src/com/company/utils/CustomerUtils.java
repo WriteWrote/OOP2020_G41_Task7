@@ -5,11 +5,12 @@ import com.company.products.ProductType;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ServiceUtils {
+public class CustomerUtils {
     public static Map<ProductType, Integer> generateSimpleDesires() {
         HashMap<ProductType, Integer> scaleOfDesires = new HashMap<>();
-        for (int i = 0; i < Math.random() * ProductUtils.getCountOfProductTypes(); i++) {
-            scaleOfDesires.put(ProductUtils.getRandomProductType(), (int)(Math.random()*9+1));
+        int n = (int) (Math.random() * (ProductUtils.getCountOfProductTypes() - 3));
+        for (int i = 0; i < n; i++) {
+            scaleOfDesires.put(ProductUtils.getRandomProductType(), (int) (Math.random() * 9 + 1));
         }
         return scaleOfDesires;
     }

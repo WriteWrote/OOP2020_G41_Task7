@@ -1,6 +1,6 @@
 package com.company.products;
 
-public class Countable{
+public class Countable {
     private String name;
     private ProductType productType;
     private int price, partialWeight, quantity, expirationDays;
@@ -16,6 +16,10 @@ public class Countable{
 
     public ProductType getProductType() {
         return productType;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public int getPrice() {

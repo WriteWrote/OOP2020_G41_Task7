@@ -1,6 +1,6 @@
 package com.company.products;
 
-public class Uncountable{
+public class Uncountable {
     private String name;
     private ProductType productType;
     private int price, weight, expirationDays;
@@ -15,6 +15,10 @@ public class Uncountable{
 
     public ProductType getProductType() {
         return productType;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public int getPrice() {
