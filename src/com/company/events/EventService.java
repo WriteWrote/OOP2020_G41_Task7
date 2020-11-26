@@ -63,20 +63,20 @@ public class EventService {
         }
     }
 
-    public static LinkedList<Customer> generateCustomers() {
+    public static List<Customer> generateCustomers() {
         List<Customer> list = new LinkedList<>();
         int n = (int) (Math.random() * (10 - 1));
         for (int i = 0; i < n; i++) {
             list.add(new Customer((int) (Math.random() * (3500 - 500))));
         }
-        return new LinkedList<>();
+        return list;
     }
 
     public static Warehouse generateProducts() {
         Warehouse admission = new Warehouse();
         Map<ProductType, Countable> countableMap = new HashMap<>();
         Map<ProductType, Uncountable> uncountableMap = new HashMap<>();
-        int n = (int) (Math.random() * (10 - 1));
+        int n = (int) (Math.random() * (10 - 3));
         for (int i = 0; i < n; i++) {
             ProductType type = ProductUtils.getRandomProductType();
             countableMap.put(type, new Countable(type.toString(), type,     //name, type
@@ -86,12 +86,12 @@ public class EventService {
                     ProductUtils.getExpirationDays(type)    //expirationDays
             ));
         }
-        n = (int) (Math.random() * (10 - 1));
+        n = (int) (Math.random() * (10 - 3));
         for (int i = 0; i < n; i++) {
             ProductType type = ProductUtils.getRandomProductType();
             uncountableMap.put(type, new Uncountable(type.toString(), type, // name, type
                     (int) (Math.random() * (1000 - 50)),         //price
-                    (int) (Math.random() * (150 - 1)),           //weight
+                    (int) (Math.random() * (300 - 100)),           //weight
                     ProductUtils.getExpirationDays(type)    // expirationDays
             ));
         }
@@ -133,11 +133,16 @@ public class EventService {
             Uncountable description;
             // либо достаем из торгового зала уже существующую позицию
             if (shop.getUncountableMap().containsKey(entry.getKey())) {
-                description = shop.getUncountableMap().get(entry.getKey());
+                int price = shop.getUncountableMap().get(entry.getKey()).getPrice();
+                int w = shop.getUncountableMap().get(entry.getKey()).getWeight();
+                int exp = shop.getUncountableMap().get(entry.getKey()).getExpirationDays();
+                String name = shop.getUncountableMap().get(entry.getKey()).getName();
+                description = new Uncountable(name, shop.getСountableMap().get(entry.getKey()).getProductType(),
+                        price,w, exp);
             } else {
                 //либо создаем новую, если такой нет
                 description = new Uncountable(entry.getValue().getName(), entry.getValue().getProductType(),
-                        entry.getValue().getPrice(), entry.getValue().getWeight(), entry.getValue().getExpirationDays());
+                        entry.getValue().getPrice(), 0, entry.getValue().getExpirationDays());
             }
             // если на складе лежит больше 30 кг товара, то отщипываем от него
             if (entry.getValue().getWeight() > 30) {
