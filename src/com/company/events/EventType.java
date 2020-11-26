@@ -5,5 +5,6 @@ public enum EventType {
     PriceFall,
     ProductsAdmission,
     DeleteExpProducts,
-    ProductsToTheShoppingRoom
+    ProductsMovingToTheShoppingRoom,
+    ServingCustomer
 }

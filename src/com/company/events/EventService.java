@@ -1,8 +1,6 @@
 package com.company.events;
 
-import com.company.Customer;
-import com.company.Supermarket;
-import com.company.Warehouse;
+import com.company.*;
 import com.company.products.Countable;
 import com.company.products.ProductType;
 import com.company.products.Uncountable;
@@ -15,59 +13,52 @@ public class EventService {
     public static void runSupermarket(Supermarket supermarket) throws InterruptedException {
         Queue<EventType> events = supermarket.getEvents();
         events.add(EventType.ProductsAdmission);
-        events.add(EventType.ProductsAdmission);
-
-        events.add(EventType.ProductsToTheShoppingRoom);
-        events.add(EventType.JoiningCustomers);
-        //events.add(EventType.PriceFall);
-        events.add(EventType.JoiningCustomers);
-        events.add(EventType.ProductsToTheShoppingRoom);
-        events.add(EventType.PriceFall);
-        events.add(EventType.DeleteExpProducts);
-        //events.add(EventService.castEvent());
 
         while (events.size() > 0) {
             //events.add(EventService.castEvent());
-            //if (events.size() > 1) {
-            switch (events.poll()) {
-                case PriceFall: {
-                    System.out.println("PriceFall");
-                    EventService.priceFall(supermarket.getShop());
+            if (events.size() > 1) {
+                switch (events.poll()) {
+                    case PriceFall: {
+                        System.out.println("PriceFall");
+                        EventService.priceFall(supermarket.getShop());
+                    }
+                    break;
+                    case JoiningCustomers: {
+                        System.out.println("JoiningCustomers");
+                        supermarket.getCustomers().addAll(EventService.generateCustomers());
+                    }
+                    break;
+                    case DeleteExpProducts: {
+                        System.out.println("deleteExpProducts in shop");
+                        EventService.deleteExpProducts(supermarket.getShop());
+                        System.out.println("deleteExpProducts in stock");
+                        EventService.deleteExpProducts(supermarket.getStock());
+                    }
+                    break;
+                    case ProductsAdmission: {
+                        System.out.println("ProductAdmission");
+                        Warehouse admission = EventService.generateProducts();
+                        supermarket.getStock().getCountableMap().putAll(admission.getCountableMap());
+                        supermarket.getStock().getUncountableMap().putAll(admission.getUncountableMap());
+                    }
+                    case ProductsMovingToTheShoppingRoom: {
+                        EventService.moveProductsToShop(supermarket.getStock(), supermarket.getShop());
+                    }
+                    break;
                 }
-                break;
-                case JoiningCustomers: {
-                    System.out.println("JoiningCustomers");
-                    supermarket.getCustomers().addAll(EventService.generateCustomers());
-                }
-                break;
-                case DeleteExpProducts: {
-                    System.out.println("deleteExpProducts in shop");
-                    EventService.deleteExpProducts(supermarket.getShop());
-                    System.out.println("deleteExpProducts in stock");
-                    EventService.deleteExpProducts(supermarket.getStock());
-                }
-                break;
-                case ProductsAdmission: {
-                    System.out.println("ProductAdmission");
-                    Warehouse admission = EventService.generateProducts();
-                    supermarket.getStock().getCountableMap().putAll(admission.getCountableMap());
-                    supermarket.getStock().getUncountableMap().putAll(admission.getUncountableMap());
-                }
-                case ProductsToTheShoppingRoom: {
-                    EventService.moveProductsToShop(supermarket.getStock(), supermarket.getShop());
-                }
-                break;
-            }
-            TimeUnit.SECONDS.sleep(1);
-            EventService.decreaseExpirationDays(supermarket);
-            /*} else {
+                TimeUnit.SECONDS.sleep(1);
+                EventService.decreaseExpirationDays(supermarket);
+                ResultFrame.setCurrentEvent(EventType.ServingCustomer);
+                serveCustomer(supermarket.getCustomers(), supermarket.getShop());
+                ResultFrame.setCustomers(supermarket.getCustomers());
+            } else {
                 for (int i = 0; i < (int) (Math.random() * 50 + 1); i++)
                     events.add(EventService.castEvent());
-            }*/
+            }
         }
     }
 
-    public static List<Customer> generateCustomers() {
+    private static List<Customer> generateCustomers() {
         List<Customer> list = new LinkedList<>();
         int n = (int) (Math.random() * (10 - 1));
         for (int i = 0; i < n; i++) {
@@ -76,21 +67,21 @@ public class EventService {
         return list;
     }
 
-    public static Warehouse generateProducts() {
+    private static Warehouse generateProducts() {
         Warehouse admission = new Warehouse();
         Map<ProductType, Countable> countableMap = new HashMap<>();
         Map<ProductType, Uncountable> uncountableMap = new HashMap<>();
-        int n = (int) (Math.random() * (10 - 3));
+        int n = (int) (Math.random() * (10 - 3)+1);
         for (int i = 0; i < n; i++) {
             ProductType type = ProductUtils.getRandomProductType();
             countableMap.put(type, new Countable(type.toString(), type,     //name, type
                     (int) (Math.random() * (1000 - 50)),         //price
-                    (int) (Math.random() * (5 - 1)),           //partialWeight
+                    (int) (Math.random() * (5)+1),           //partialWeight
                     (int) (Math.random() * (300 - 100)),       //quantity
                     ProductUtils.getExpirationDays(type)    //expirationDays
             ));
         }
-        n = (int) (Math.random() * (10 - 3));
+        n = (int) (Math.random() * (10 - 3)+1);
         for (int i = 0; i < n; i++) {
             ProductType type = ProductUtils.getRandomProductType();
             uncountableMap.put(type, new Uncountable(type.toString(), type, // name, type
@@ -104,25 +95,27 @@ public class EventService {
         return admission;
     }
 
-    public static void priceFall(Warehouse shoppingRoom) {
+    private static void priceFall(Warehouse shoppingRoom) {
         for (Countable v :
                 shoppingRoom.getCountableMap().values()) {
-            if (v.getExpirationDays() < 5) {
+            if (v.getExpirationDays() < 15) {
                 v.setPrice(v.getPrice() / 2);
+                v.setDiscounted(true);
             }
         }
         for (Uncountable v :
                 shoppingRoom.getUncountableMap().values()) {
             if (v.getExpirationDays() < 50) {
                 v.setPrice(v.getPrice() / 2);
+                v.setDiscounted(true);
             }
         }
     }
 
-    public static void deleteExpProducts(Warehouse shoppingRoom) {
+    private static void deleteExpProducts(Warehouse shoppingRoom) {
         shoppingRoom.getCountableMap().entrySet().removeIf(entry -> entry.getValue().getExpirationDays() <= 0
                 || entry.getValue().getQuantity() == 0);
-        shoppingRoom.getUncountableMap().entrySet().removeIf(entry -> entry.getValue().getExpirationDays() <=0
+        shoppingRoom.getUncountableMap().entrySet().removeIf(entry -> entry.getValue().getExpirationDays() <= 0
                 || entry.getValue().getWeight() == 0);
     }
 
@@ -130,7 +123,7 @@ public class EventService {
         return EventType.values()[(int) (Math.random() * EventType.values().length)];
     }
 
-    public static void moveProductsToShop(Warehouse stock, Warehouse shop) {
+    private static void moveProductsToShop(Warehouse stock, Warehouse shop) {
         Iterator<Map.Entry<ProductType, Uncountable>> iUc = stock.getUncountableMap().entrySet().iterator();
         while (iUc.hasNext()) {
             Map.Entry<ProductType, Uncountable> entry = iUc.next();
@@ -217,7 +210,7 @@ public class EventService {
         }
     }
 
-    public static void decreaseExpirationDays(Supermarket supermarket) {
+    private static void decreaseExpirationDays(Supermarket supermarket) {
         for (Countable p : supermarket.getStock().getCountableMap().values()) {
             p.setExpirationDays(p.getExpirationDays() - 1);
         }
@@ -232,6 +225,46 @@ public class EventService {
         for (Uncountable p :
                 supermarket.getShop().getUncountableMap().values()) {
             p.setExpirationDays(p.getExpirationDays() - 1);
+        }
+    }
+
+    private static void serveCustomer(List<Customer> customers, Warehouse shop) {
+        Iterator<Customer> iterator = customers.iterator();
+        while (iterator.hasNext()) {
+            Customer c = iterator.next();
+            for (Map.Entry<ProductType, Integer> entry :
+                    c.getScaleOfDesires().entrySet()) {
+                if (entry.getValue() > 5) {
+                    if (shop.getCountableMap().containsKey(entry.getKey())
+                            && entry.getValue() > 0) {
+                        int q = shop.getCountableMap().get(entry.getKey()).getPartialWeight();
+                        int Q = shop.getCountableMap().get(entry.getKey()).getQuantity();
+                        shop.getCountableMap().get(entry.getKey()).setQuantity(q < entry.getValue() ? Q - (entry.getValue() / q + 1) : Q - q);
+                        entry.setValue(q < entry.getValue() ? Q - (entry.getValue() / q + 1) : Q - q);
+                    } else if (shop.getUncountableMap().containsKey(entry.getKey())
+                            && entry.getValue() > 0) {
+                        int Q = shop.getUncountableMap().get(entry.getKey()).getWeight();
+                        shop.getCountableMap().get(entry.getKey()).setQuantity(Q < entry.getValue() ? 0 : Q - entry.getValue());
+                        entry.setValue(Q < entry.getValue() ? 0 : Q - entry.getValue());
+                    }
+                } else {
+                    if (shop.getCountableMap().containsKey(entry.getKey())
+                            && shop.getCountableMap().get(entry.getKey()).isDiscounted()
+                            && entry.getValue() > 0) {
+                        int q = shop.getCountableMap().get(entry.getKey()).getPartialWeight();
+                        int Q = shop.getCountableMap().get(entry.getKey()).getQuantity();
+                        shop.getCountableMap().get(entry.getKey()).setQuantity(q < entry.getValue() ? Q - (entry.getValue() / q + 1) : Q - q);
+                        entry.setValue(q < entry.getValue() ? Q - (entry.getValue() / q + 1) : Q - q);
+                    } else if (shop.getUncountableMap().containsKey(entry.getKey())
+                            && shop.getUncountableMap().get(entry.getKey()).isDiscounted()
+                            && entry.getValue() > 0) {
+                        int Q = shop.getUncountableMap().get(entry.getKey()).getWeight();
+                        shop.getUncountableMap().get(entry.getKey()).setWeight(Q < entry.getValue() ? 0 : Q - entry.getValue());
+                        entry.setValue(Q < entry.getValue() ? 0 : Q - entry.getValue());
+                    }
+                }
+            }
+            iterator.remove();
         }
     }
 }
