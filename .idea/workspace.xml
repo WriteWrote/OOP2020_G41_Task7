@@ -104,11 +104,6 @@
           <line>14</line>
           <option name="timeStamp" value="45" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/company/events/EventService.java</url>
-          <line>292</line>
-          <option name="timeStamp" value="46" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

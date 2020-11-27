@@ -4,7 +4,7 @@ public enum EventType {
     JoiningCustomers,
     PriceFall,
     ProductsAdmission,
-    DeleteExpProducts,
-    ProductsMovingToTheShoppingRoom,
+    DeleteExpiredProducts,
+    MovingProductsToTheShoppingRoom,
     ServingCustomer
 }
