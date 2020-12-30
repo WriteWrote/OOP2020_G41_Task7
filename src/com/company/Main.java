@@ -1,16 +1,11 @@
 package com.company;
 
 import com.company.events.EventService;
-import com.company.products.Countable;
-import com.company.products.ProductType;
-import com.company.products.Uncountable;
-import com.company.serialise_utils.StorageSerializer;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
-import java.util.Map;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
 
 public class Main {
 
@@ -18,19 +13,15 @@ public class Main {
         System.out.println("Hello world! Starting work");
         Supermarket supermarket = new Supermarket();
         EventService service = new EventService();
-        try {
-            Type storageCountableType = new TypeToken<Map<ProductType, Countable>>() {
-            }.getType();
-            Type storageUncountableType = new TypeToken<Map<ProductType, Uncountable>>() {
-            }.getType();
-            Gson gson = new GsonBuilder()
-                    .registerTypeAdapter(storageCountableType, new StorageSerializer())
-                    .registerTypeAdapter(storageUncountableType, new StorageSerializer())
-                    .setPrettyPrinting()
-                    .create();
-            String json = gson.toJson(supermarket);
+        try (FileReader reader = new FileReader("src/main/java/startGame")) {
+            Scanner scn = new Scanner(reader);
+            StringBuilder json = new StringBuilder();
+            while (scn.hasNext()) {
+                //System.out.print(scn.next());
+                json.append(scn.next());
+            }
             service.runSupermarket(supermarket);
-        } catch (InterruptedException ex) {
+        } catch (IOException | InterruptedException ex) {
             ex.printStackTrace();
         }
     }

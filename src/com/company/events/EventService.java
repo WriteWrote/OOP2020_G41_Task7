@@ -4,9 +4,13 @@ import com.company.*;
 import com.company.products.Countable;
 import com.company.products.ProductType;
 import com.company.products.Uncountable;
+import com.company.utils.serializers.CountableMapSerializer;
+import com.company.utils.serializers.UncountableMapSerializer;
 import com.company.utils.CustomerUtils;
 import com.company.utils.OutputUtils;
 import com.company.utils.ProductUtils;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -20,6 +24,19 @@ public class EventService {
         OutputUtils printer = new OutputUtils();
         CustomerUtils customerUtils = new CustomerUtils();
         ProductUtils productUtils = new ProductUtils();
+
+        Type countableType = new TypeToken<Map<ProductType, Countable>>() {
+        }.getType();
+        Type uncountableType = new TypeToken<Map<ProductType, Uncountable>>() {
+        }.getType();
+
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(countableType, new CountableMapSerializer())
+                .registerTypeAdapter(uncountableType, new UncountableMapSerializer())
+                .setPrettyPrinting()
+                .create();
+
+        String json;
 
         while (events.size() > 0) {
             if (events.size() > 1) {
@@ -61,6 +78,8 @@ public class EventService {
                         supermarket.getCustomers().size());
                 productUtils.decreaseExpirationDays(supermarket);
                 printer.printDayPassed();
+
+                json = gson.toJson(supermarket);
             } else {
                 for (int i = 0; i < (int) (Math.random() * 50 + 1); i++)
                     events.add(EventService.castEvent());
