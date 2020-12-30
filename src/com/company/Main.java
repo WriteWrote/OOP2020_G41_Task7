@@ -1,7 +1,7 @@
 package com.company;
 
 import com.company.events.EventService;
-import javax.swing.*;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -13,11 +13,11 @@ public class Main {
         System.out.println("Hello world! Starting work");
         Supermarket supermarket = new Supermarket();
         EventService service = new EventService();
-        try (FileReader reader = new FileReader("src/main/java/startGame")) {
+        try (FileReader reader = new FileReader("./src/main/resources/save.txt")) {
             Scanner scn = new Scanner(reader);
             StringBuilder json = new StringBuilder();
             while (scn.hasNext()) {
-                //System.out.print(scn.next());
+                System.out.println(scn.next());
                 json.append(scn.next());
             }
             service.runSupermarket(supermarket);

@@ -22,6 +22,7 @@ public class OutputUtils {
         }
         System.out.println();
     }
+
     private void printLine() {
         for (int i = 0; i < 49; i++)
             System.out.print("-");
