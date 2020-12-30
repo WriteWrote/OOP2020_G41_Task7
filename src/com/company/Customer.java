@@ -10,8 +10,9 @@ public class Customer {
     private Map<ProductType, Integer> scaleOfDesires;
 
     public Customer(double money) {
+        CustomerUtils utils = new CustomerUtils();
         this.money = money;
-        scaleOfDesires = CustomerUtils.generateSimpleDesires();
+        scaleOfDesires = utils.generateSimpleDesires();
     }
 
     public double getMoney() {

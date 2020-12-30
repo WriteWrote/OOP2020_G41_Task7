@@ -1,19 +1,24 @@
 package com.company.products;
 
 public enum ProductType {
-    Alcohol,
-    Bread,
-    Cheese,
-    Clothes,
-    Drink,
-    Fish,
-    Meat,
-    Milk,
-    Papers,
-    Sausage,
-    Seafood,
-    Spices,
-    Sweeties,
-    Toiletry,
-    Vegetables;
+    ALCOHOL,
+    BREAD,
+    CHEESE,
+    CLOTHES,
+    DRINK,
+    FISH,
+    MEAT,
+    MILK,
+    PAPERS,
+    SAUSAGE,
+    SEAFOOD,
+    SPICES,
+    SWEETIES,
+    TOILETRY,
+    VEGETABLES;
+
+    @Override
+    public String toString() {
+        return this.name();
+    }
 }

@@ -1,22 +1,23 @@
 package com.company.utils;
 
 import com.company.Customer;
-import com.company.Warehouse;
+import com.company.Storage;
 import com.company.products.ProductType;
 
 import java.util.*;
 
 public class CustomerUtils {
-    public static Map<ProductType, Integer> generateSimpleDesires() {
+    public Map<ProductType, Integer> generateSimpleDesires() {
+        ProductUtils generator = new ProductUtils();
         HashMap<ProductType, Integer> scaleOfDesires = new HashMap<>();
-        int n = (int) (Math.random() * (ProductUtils.getCountOfProductTypes() - 3));
+        int n = (int) (Math.random() * (generator.getCountOfProductTypes() - 3));
         for (int i = 0; i < n; i++) {
-            scaleOfDesires.put(ProductUtils.getRandomProductType(), (int) (Math.random() * (9 - 3)));
+            scaleOfDesires.put(generator.getRandomProductType(), (int) (Math.random() * (9 - 3)));
         }
         return scaleOfDesires;
     }
 
-    public static void serveCustomer(List<Customer> customers, Warehouse shop) {
+    public void serveCustomer(List<Customer> customers, Storage shop) {
         Iterator<Customer> iterator = customers.iterator();
         while (iterator.hasNext()) {
             Customer c = iterator.next();
@@ -39,7 +40,7 @@ public class CustomerUtils {
         }
     }
 
-    public static List<Customer> generateCustomers() {
+    public List<Customer> generateCustomers() {
         List<Customer> list = new LinkedList<>();
         int n = (int) (Math.random() * (10 - 1) + 1);
         for (int i = 0; i < n; i++) {
