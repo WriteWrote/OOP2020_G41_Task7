@@ -15,3 +15,6 @@ Also I need to make a method in enum, which returns expiration days. I guess thi
 Talking about Stock and ShoppingRoom. The difference is the Queue of customers, also the quantities of products.
 Stock: Map/Set <enum, description>;
 ShoppingRoom: Set<enum, description>; Queue <Customers>;
+    
+NEW: finished with the original project. Added Maven, now managing Gson serializing.\
+ToDo: multithreading for pretty output (yeah, just like that)
