@@ -4,6 +4,7 @@ import com.company.*;
 import com.company.products.Countable;
 import com.company.products.ProductType;
 import com.company.products.Uncountable;
+
 import com.company.utils.serializers.CountableMapSerializer;
 import com.company.utils.serializers.UncountableMapSerializer;
 import com.company.utils.CustomerUtils;
@@ -37,7 +38,6 @@ public class EventService {
                 .create();
 
         String json;
-
         while (events.size() > 0) {
             if (events.size() > 1) {
                 switch (events.poll()) {

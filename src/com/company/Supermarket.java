@@ -2,13 +2,11 @@ package com.company;
 
 import com.company.events.EventType;
 import com.google.gson.annotations.SerializedName;
-
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
 public class Supermarket {
-
     private Storage stock = new Storage();
     private Storage shop = new Storage();
     @SerializedName("customers queue")
@@ -17,10 +15,6 @@ public class Supermarket {
     private Queue<EventType> events = new LinkedList<>();
 
     public Supermarket() {
-    }
-
-    public Storage getStock() {
-        return stock;
     }
 
     public Storage getShop() {
