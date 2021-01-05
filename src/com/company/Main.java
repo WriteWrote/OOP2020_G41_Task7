@@ -13,7 +13,7 @@ public class Main {
 
     public static void main(String[] args) throws InterruptedException {
         System.out.println("Hello world! Starting work");
-        Supermarket supermarket = new Supermarket();
+        Supermarket supermarket;
         EventService service = new EventService();
         try (FileReader reader = new FileReader("./src/main/resources/save.txt")) {
             Scanner scn = new Scanner(reader);
