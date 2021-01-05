@@ -6,13 +6,15 @@ import com.company.products.ProductType;
 import com.company.products.Uncountable;
 import com.company.utils.serializers.CountableMapSerializer;
 import com.company.utils.serializers.UncountableMapSerializer;
-import com.company.utils.CustomerUtils;
+import com.company.utils.CustomerService;
 import com.company.utils.OutputUtils;
-import com.company.utils.ProductUtils;
+import com.company.utils.ProductService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -21,9 +23,10 @@ public class EventService {
     public void runSupermarket(Supermarket supermarket) throws InterruptedException {
         Queue<EventType> events = supermarket.getEvents();
         events.add(EventType.ADMISSION);
+
         OutputUtils printer = new OutputUtils();
-        CustomerUtils customerUtils = new CustomerUtils();
-        ProductUtils productUtils = new ProductUtils();
+        CustomerService customerService = new CustomerService();
+        ProductService productService = new ProductService();
 
         Type countableType = new TypeToken<Map<ProductType, Countable>>() {
         }.getType();
@@ -31,12 +34,12 @@ public class EventService {
         }.getType();
 
         Gson gson = new GsonBuilder()
-                .registerTypeAdapter(countableType, new CountableMapSerializer())
-                .registerTypeAdapter(uncountableType, new UncountableMapSerializer())
+                //.registerTypeAdapter(countableType, new CountableMapSerializer())
+                //.registerTypeAdapter(uncountableType, new UncountableMapSerializer())
                 .setPrettyPrinting()
                 .create();
 
-        String json;
+        String jsonSaving;
 
         while (events.size() > 0) {
             if (events.size() > 1) {
@@ -48,7 +51,7 @@ public class EventService {
                     break;
                     case NEW_CUSTOMER: {
                         int n = supermarket.getCustomers().size();
-                        supermarket.getCustomers().addAll(customerUtils.generateCustomers());
+                        supermarket.getCustomers().addAll(customerService.generateCustomers());
                         printer.printCustomers(EventType.NEW_CUSTOMER.toString(), supermarket.getCustomers().size() - n, supermarket.getCustomers().size());
                     }
                     break;
@@ -60,7 +63,7 @@ public class EventService {
                     }
                     break;
                     case ADMISSION: {
-                        Storage admission = productUtils.generateProducts();
+                        Storage admission = productService.generateProducts();
                         supermarket.getStock().getCountableMap().putAll(admission.getCountableMap());
                         supermarket.getStock().getUncountableMap().putAll(admission.getUncountableMap());
                         printer.printResult(EventType.ADMISSION.toString(), supermarket.getStock());
@@ -71,15 +74,26 @@ public class EventService {
                     }
                     break;
                 }
+
                 TimeUnit.SECONDS.sleep(2);
+
                 int n = supermarket.getCustomers().size();
-                customerUtils.serveCustomer(supermarket.getCustomers(), supermarket.getShop());
+                customerService.serveCustomer(supermarket.getCustomers(), supermarket.getShop());
+
                 printer.printCustomers(EventType.SERVE_CUSTOMER.toString(), supermarket.getCustomers().size() - n,
                         supermarket.getCustomers().size());
-                productUtils.decreaseExpirationDays(supermarket);
+
+                productService.decreaseExpirationDays(supermarket);
+
                 printer.printDayPassed();
 
-                json = gson.toJson(supermarket);
+                try (FileWriter writer = new FileWriter("./src/main/resources/save.txt", false)) {
+                    jsonSaving = gson.toJson(supermarket);
+                    writer.write(jsonSaving);
+                    writer.flush();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             } else {
                 for (int i = 0; i < (int) (Math.random() * 50 + 1); i++)
                     events.add(EventService.castEvent());

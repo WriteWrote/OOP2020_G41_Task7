@@ -1,7 +1,7 @@
 package com.company;
 
 import com.company.products.ProductType;
-import com.company.utils.CustomerUtils;
+import com.company.utils.CustomerService;
 
 import java.util.Map;
 
@@ -10,7 +10,7 @@ public class Customer {
     private Map<ProductType, Integer> scaleOfDesires;
 
     public Customer(double money) {
-        CustomerUtils utils = new CustomerUtils();
+        CustomerService utils = new CustomerService();
         this.money = money;
         scaleOfDesires = utils.generateSimpleDesires();
     }

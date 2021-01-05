@@ -1,0 +1,159 @@
+{
+  "stock": {
+    "countable products": {
+      "SAUSAGE": {
+        "name": "SAUSAGE",
+        "productType": "SAUSAGE",
+        "price": 769,
+        "partialWeight": 5,
+        "quantity": 43,
+        "expirationDays": 29,
+        "isDiscounted": false
+      },
+      "DRINK": {
+        "name": "DRINK",
+        "productType": "DRINK",
+        "price": 456,
+        "partialWeight": 5,
+        "quantity": 78,
+        "expirationDays": 20,
+        "isDiscounted": false
+      },
+      "BREAD": {
+        "name": "BREAD",
+        "productType": "BREAD",
+        "price": 743,
+        "partialWeight": 4,
+        "quantity": 153,
+        "expirationDays": 13,
+        "isDiscounted": false
+      },
+      "CHEESE": {
+        "name": "CHEESE",
+        "productType": "CHEESE",
+        "price": 777,
+        "partialWeight": 4,
+        "quantity": 36,
+        "expirationDays": 39,
+        "isDiscounted": false
+      },
+      "SWEETIES": {
+        "name": "SWEETIES",
+        "productType": "SWEETIES",
+        "price": 728,
+        "partialWeight": 3,
+        "quantity": 144,
+        "expirationDays": 13,
+        "isDiscounted": false
+      },
+      "MILK": {
+        "name": "MILK",
+        "productType": "MILK",
+        "price": 134,
+        "partialWeight": 3,
+        "quantity": 35,
+        "expirationDays": 9,
+        "isDiscounted": false
+      }
+    },
+    "uncountable products": {
+      "PAPERS": {
+        "name": "PAPERS",
+        "productType": "PAPERS",
+        "price": 184,
+        "weight": 100,
+        "expirationDays": 3649,
+        "isDiscounted": false
+      }
+    }
+  },
+  "shop": {
+    "countable products": {
+      "SAUSAGE": {
+        "name": "SAUSAGE",
+        "productType": "SAUSAGE",
+        "price": 769,
+        "partialWeight": 5,
+        "quantity": 30,
+        "expirationDays": 29,
+        "isDiscounted": false
+      },
+      "DRINK": {
+        "name": "DRINK",
+        "productType": "DRINK",
+        "price": 456,
+        "partialWeight": 5,
+        "quantity": 30,
+        "expirationDays": 20,
+        "isDiscounted": false
+      },
+      "BREAD": {
+        "name": "BREAD",
+        "productType": "BREAD",
+        "price": 743,
+        "partialWeight": 4,
+        "quantity": 30,
+        "expirationDays": 13,
+        "isDiscounted": false
+      },
+      "CHEESE": {
+        "name": "CHEESE",
+        "productType": "CHEESE",
+        "price": 777,
+        "partialWeight": 4,
+        "quantity": 30,
+        "expirationDays": 39,
+        "isDiscounted": false
+      },
+      "SWEETIES": {
+        "name": "SWEETIES",
+        "productType": "SWEETIES",
+        "price": 728,
+        "partialWeight": 3,
+        "quantity": 30,
+        "expirationDays": 13,
+        "isDiscounted": false
+      },
+      "MILK": {
+        "name": "MILK",
+        "productType": "MILK",
+        "price": 134,
+        "partialWeight": 3,
+        "quantity": 30,
+        "expirationDays": 9,
+        "isDiscounted": false
+      }
+    },
+    "uncountable products": {
+      "PAPERS": {
+        "name": "PAPERS",
+        "productType": "PAPERS",
+        "price": 184,
+        "weight": 30,
+        "expirationDays": 3649,
+        "isDiscounted": false
+      }
+    }
+  },
+  "customers queue": [],
+  "planned events": [
+    "ADMISSION",
+    "DELETE_EXP",
+    "SERVE_CUSTOMER",
+    "DELETE_EXP",
+    "SERVE_CUSTOMER",
+    "DELETE_EXP",
+    "NEW_CUSTOMER",
+    "PRICE_FALL",
+    "NEW_CUSTOMER",
+    "SERVE_CUSTOMER",
+    "SERVE_CUSTOMER",
+    "DELETE_EXP",
+    "DELETE_EXP",
+    "NEW_CUSTOMER",
+    "DELETE_EXP",
+    "DELETE_EXP",
+    "DELETE_EXP",
+    "NEW_CUSTOMER"
+  ]
+}

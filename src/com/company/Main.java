@@ -1,6 +1,8 @@
 package com.company;
 
 import com.company.events.EventService;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -15,11 +17,13 @@ public class Main {
         EventService service = new EventService();
         try (FileReader reader = new FileReader("./src/main/resources/save.txt")) {
             Scanner scn = new Scanner(reader);
-            StringBuilder json = new StringBuilder();
-            while (scn.hasNext()) {
-                System.out.println(scn.next());
-                json.append(scn.next());
+            StringBuilder text = new StringBuilder();
+            while (scn.hasNextLine()
+            ) {
+                text.append(scn.nextLine());
             }
+            supermarket = new Gson().fromJson(String.valueOf(text), Supermarket.class);
+
             service.runSupermarket(supermarket);
         } catch (IOException | InterruptedException ex) {
             ex.printStackTrace();
