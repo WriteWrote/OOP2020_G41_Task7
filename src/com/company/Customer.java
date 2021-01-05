@@ -1,7 +1,7 @@
 package com.company;
 
 import com.company.products.ProductType;
-import com.company.utils.CustomerService;
+import com.company.services.CustomerService;
 
 import java.util.Map;
 
