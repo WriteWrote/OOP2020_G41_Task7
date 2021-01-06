@@ -16,4 +16,6 @@ Talking about Stock and ShoppingRoom. The difference is the Queue of customers, 
 Stock: Map/Set <enum, description>;
 ShoppingRoom: Set<enum, description>; Queue <Customers>;
 
-NEW: finished GSON-serialization; reformatted switch-cases in ProductService and EventService. Used Consumers and labmda-expressions.
+NEW: finished with the original project, finished GSON-serialization; reformatted switch-cases in ProductService and EventService. Used Consumers and labmda-expressions.
+
+ToDo: multithreading for pretty output (yeah, just like that)
