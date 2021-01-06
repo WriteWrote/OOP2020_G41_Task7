@@ -9,11 +9,9 @@ import com.company.utils.OutputUtils;
 import com.company.services.ProductService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
@@ -23,18 +21,19 @@ public class EventService {
         Queue<EventType> events = supermarket.getEvents();
         events.add(EventType.ADMISSION);
 
-        OutputUtils printer = new OutputUtils();
-        CustomerService customerService = new CustomerService();
-        ProductService productService = new ProductService();
-
         Gson gson = new GsonBuilder()
                 .setPrettyPrinting()
                 .create();
 
         String jsonSaving;
 
+        Map<EventType, Consumer<Supermarket>> reactEventMap = initEvents();
+
         while (events.size() > 0) {
             if (events.size() > 1) {
+                Consumer<Supermarket> consumer = reactEventMap.get(events.poll());
+                consumer.accept(supermarket);
+                /*
                 switch (events.poll()) {
                     case PRICE_FALL: {
                         this.priceFall(supermarket.getShop());
@@ -66,9 +65,9 @@ public class EventService {
                     }
                     break;
                 }
-
+*/
                 TimeUnit.SECONDS.sleep(2);
-
+/*
                 int n = supermarket.getCustomers().size();
                 customerService.serveCustomer(supermarket.getCustomers(), supermarket.getShop());
 
@@ -78,7 +77,7 @@ public class EventService {
                 productService.decreaseExpirationDays(supermarket);
 
                 printer.printDayPassed();
-
+*/
                 try (FileWriter writer = new FileWriter("./src/main/resources/save.txt", false)) {
                     jsonSaving = gson.toJson(supermarket);
                     writer.write(jsonSaving);
@@ -93,31 +92,40 @@ public class EventService {
         }
     }
 
-    public Map<EventType, Consumer> initEvents() {
-        Map<EventType, Consumer> result = new HashMap<>();
+    private Map<EventType, Consumer<Supermarket>> initEvents() {
+        Map<EventType, Consumer<Supermarket>> result = new HashMap<>();
 
         OutputUtils printer = new OutputUtils();
         CustomerService customerService = new CustomerService();
         ProductService productService = new ProductService();
 
-        Consumer<Storage> priceFall = shop -> {
+        Consumer<Supermarket> priceFall = supermarket -> {
+            Storage shop = supermarket.getShop();
             priceFall(shop);
             printer.printResult(EventType.PRICE_FALL.toString(), shop);
         };
-        Consumer<LinkedList<Customer>> newCustomer = queue -> {
+        Consumer<Supermarket> newCustomer = supermarket -> {
+            List<Customer> queue = supermarket.getCustomers();
+
             int n = queue.size();
             queue.addAll(customerService.generateCustomers());
+
             printer.printCustomers(EventType.NEW_CUSTOMER.toString(), queue.size() - n, queue.size());
         };
-        Consumer<Storage> admission = stock -> {
+        Consumer<Supermarket> admission = supermarket -> {
+            Storage stock = supermarket.getStock();
+
             Storage newcome = productService.generateProducts();
+
             stock.getCountableMap().putAll(newcome.getCountableMap());
             stock.getUncountableMap().putAll(newcome.getUncountableMap());
+
             printer.printResult(EventType.ADMISSION.toString(), stock);
         };
         Consumer<Supermarket> deleteExp = supermarket -> {
             this.deleteExpProducts(supermarket.getShop());
             printer.printResult(EventType.DELETE_EXP.toString() + " in shop:", supermarket.getShop());
+
             this.deleteExpProducts(supermarket.getStock());
             printer.printResult(EventType.DELETE_EXP.toString() + " in stock:", supermarket.getStock());
         };
@@ -130,6 +138,7 @@ public class EventService {
             customerService.serveCustomer(supermarket.getCustomers(), supermarket.getShop());
             printer.printCustomers(EventType.SERVE_CUSTOMER.toString(), supermarket.getCustomers().size() - n,
                     supermarket.getCustomers().size());
+
             productService.decreaseExpirationDays(supermarket);
             printer.printDayPassed();
         };
