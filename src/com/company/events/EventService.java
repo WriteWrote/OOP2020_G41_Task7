@@ -20,64 +20,18 @@ public class EventService {
     public void runSupermarket(Supermarket supermarket) throws InterruptedException {
         Queue<EventType> events = supermarket.getEvents();
         events.add(EventType.ADMISSION);
-
         Gson gson = new GsonBuilder()
                 .setPrettyPrinting()
                 .create();
-
         String jsonSaving;
-
         Map<EventType, Consumer<Supermarket>> reactEventMap = initEvents();
 
         while (events.size() > 0) {
             if (events.size() > 1) {
                 Consumer<Supermarket> consumer = reactEventMap.get(events.poll());
                 consumer.accept(supermarket);
-                /*
-                switch (events.poll()) {
-                    case PRICE_FALL: {
-                        this.priceFall(supermarket.getShop());
-                        printer.printResult(EventType.PRICE_FALL.toString(), supermarket.getShop());
-                    }
-                    break;
-                    case NEW_CUSTOMER: {
-                        int n = supermarket.getCustomers().size();
-                        supermarket.getCustomers().addAll(customerService.generateCustomers());
-                        printer.printCustomers(EventType.NEW_CUSTOMER.toString(), supermarket.getCustomers().size() - n, supermarket.getCustomers().size());
-                    }
-                    break;
-                    case DELETE_EXP: {
-                        this.deleteExpProducts(supermarket.getShop());
-                        printer.printResult(EventType.DELETE_EXP.toString() + " in shop:", supermarket.getShop());
-                        this.deleteExpProducts(supermarket.getStock());
-                        printer.printResult(EventType.DELETE_EXP.toString() + " in stock:", supermarket.getStock());
-                    }
-                    break;
-                    case ADMISSION: {
-                        Storage admission = productService.generateProducts();
-                        supermarket.getStock().getCountableMap().putAll(admission.getCountableMap());
-                        supermarket.getStock().getUncountableMap().putAll(admission.getUncountableMap());
-                        printer.printResult(EventType.ADMISSION.toString(), supermarket.getStock());
-                    }
-                    case MOVE_TO_SHOP: {
-                        this.moveProductsToShop(supermarket);
-                        printer.printResult(EventType.MOVE_TO_SHOP.toString(), supermarket.getShop());
-                    }
-                    break;
-                }
-*/
                 TimeUnit.SECONDS.sleep(2);
-/*
-                int n = supermarket.getCustomers().size();
-                customerService.serveCustomer(supermarket.getCustomers(), supermarket.getShop());
 
-                printer.printCustomers(EventType.SERVE_CUSTOMER.toString(), supermarket.getCustomers().size() - n,
-                        supermarket.getCustomers().size());
-
-                productService.decreaseExpirationDays(supermarket);
-
-                printer.printDayPassed();
-*/
                 try (FileWriter writer = new FileWriter("./src/main/resources/save.txt", false)) {
                     jsonSaving = gson.toJson(supermarket);
                     writer.write(jsonSaving);

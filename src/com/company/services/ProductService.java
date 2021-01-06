@@ -9,6 +9,7 @@ import com.company.products.Uncountable;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
+import java.util.function.Consumer;
 
 public class ProductService {
     private final Map<ProductType, Integer> expMap = initExpMap();
@@ -26,21 +27,23 @@ public class ProductService {
     }
 
     public void decreaseExpirationDays(Supermarket supermarket) {
-        for (Countable p : supermarket.getStock().getCountableMap().values()) {
-            p.setExpirationDays(p.getExpirationDays() - 1);
-        }
-        for (Uncountable p :
-                supermarket.getStock().getUncountableMap().values()) {
-            p.setExpirationDays(p.getExpirationDays() - 1);
-        }
-        for (Countable p :
-                supermarket.getShop().getCountableMap().values()) {
-            p.setExpirationDays(p.getExpirationDays() - 1);
-        }
-        for (Uncountable p :
-                supermarket.getShop().getUncountableMap().values()) {
-            p.setExpirationDays(p.getExpirationDays() - 1);
-        }
+        Consumer<Map<ProductType, Countable>> countable = countableMap -> {
+            for (Countable p : countableMap.values()) {
+                p.setExpirationDays(p.getExpirationDays() - 1);
+            }
+        };
+        Consumer<Map<ProductType, Uncountable>> uncountable = uncountableMap -> {
+            for (Uncountable p : uncountableMap.values()) {
+                p.setExpirationDays(p.getExpirationDays() - 1);
+            }
+        };
+        Consumer<Storage> decreaseExp = storage -> {
+            countable.accept(storage.getCountableMap());
+            uncountable.accept(storage.getUncountableMap());
+        };
+
+        decreaseExp.accept(supermarket.getShop());
+        decreaseExp.accept(supermarket.getStock());
     }
 
     public Storage generateProducts() {
