@@ -4,8 +4,6 @@ import com.company.*;
 import com.company.products.Countable;
 import com.company.products.ProductType;
 import com.company.products.Uncountable;
-//import com.company.utils.serializers.CountableMapSerializer;
-//import com.company.utils.serializers.UncountableMapSerializer;
 import com.company.services.CustomerService;
 import com.company.utils.OutputUtils;
 import com.company.services.ProductService;
@@ -18,6 +16,7 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Consumer;
 
 public class EventService {
     public void runSupermarket(Supermarket supermarket) throws InterruptedException {
@@ -28,14 +27,7 @@ public class EventService {
         CustomerService customerService = new CustomerService();
         ProductService productService = new ProductService();
 
-        Type countableType = new TypeToken<Map<ProductType, Countable>>() {
-        }.getType();
-        Type uncountableType = new TypeToken<Map<ProductType, Uncountable>>() {
-        }.getType();
-
         Gson gson = new GsonBuilder()
-                //.registerTypeAdapter(countableType, new CountableMapSerializer())
-                //.registerTypeAdapter(uncountableType, new UncountableMapSerializer())
                 .setPrettyPrinting()
                 .create();
 
@@ -69,7 +61,7 @@ public class EventService {
                         printer.printResult(EventType.ADMISSION.toString(), supermarket.getStock());
                     }
                     case MOVE_TO_SHOP: {
-                        this.moveProductsToShop(supermarket.getStock(), supermarket.getShop());
+                        this.moveProductsToShop(supermarket);
                         printer.printResult(EventType.MOVE_TO_SHOP.toString(), supermarket.getShop());
                     }
                     break;
@@ -101,6 +93,57 @@ public class EventService {
         }
     }
 
+    public Map<EventType, Consumer> initEvents() {
+        Map<EventType, Consumer> result = new HashMap<>();
+
+        OutputUtils printer = new OutputUtils();
+        CustomerService customerService = new CustomerService();
+        ProductService productService = new ProductService();
+
+        Consumer<Storage> priceFall = shop -> {
+            priceFall(shop);
+            printer.printResult(EventType.PRICE_FALL.toString(), shop);
+        };
+        Consumer<LinkedList<Customer>> newCustomer = queue -> {
+            int n = queue.size();
+            queue.addAll(customerService.generateCustomers());
+            printer.printCustomers(EventType.NEW_CUSTOMER.toString(), queue.size() - n, queue.size());
+        };
+        Consumer<Storage> admission = stock -> {
+            Storage newcome = productService.generateProducts();
+            stock.getCountableMap().putAll(newcome.getCountableMap());
+            stock.getUncountableMap().putAll(newcome.getUncountableMap());
+            printer.printResult(EventType.ADMISSION.toString(), stock);
+        };
+        Consumer<Supermarket> deleteExp = supermarket -> {
+            this.deleteExpProducts(supermarket.getShop());
+            printer.printResult(EventType.DELETE_EXP.toString() + " in shop:", supermarket.getShop());
+            this.deleteExpProducts(supermarket.getStock());
+            printer.printResult(EventType.DELETE_EXP.toString() + " in stock:", supermarket.getStock());
+        };
+        Consumer<Supermarket> moveToShop = supermarket -> {
+            moveProductsToShop(supermarket);
+            printer.printResult(EventType.MOVE_TO_SHOP.toString(), supermarket.getShop());
+        };
+        Consumer<Supermarket> serveCustomers = supermarket -> {
+            int n = supermarket.getCustomers().size();
+            customerService.serveCustomer(supermarket.getCustomers(), supermarket.getShop());
+            printer.printCustomers(EventType.SERVE_CUSTOMER.toString(), supermarket.getCustomers().size() - n,
+                    supermarket.getCustomers().size());
+            productService.decreaseExpirationDays(supermarket);
+            printer.printDayPassed();
+        };
+
+        result.put(EventType.ADMISSION, admission);
+        result.put(EventType.PRICE_FALL, priceFall);
+        result.put(EventType.NEW_CUSTOMER, newCustomer);
+        result.put(EventType.DELETE_EXP, deleteExp);
+        result.put(EventType.MOVE_TO_SHOP, moveToShop);
+        result.put(EventType.SERVE_CUSTOMER, serveCustomers);
+
+        return result;
+    }
+
     private void priceFall(Storage shoppingRoom) {
         for (Countable v :
                 shoppingRoom.getCountableMap().values()) {
@@ -129,10 +172,10 @@ public class EventService {
         return EventType.values()[(int) (Math.random() * EventType.values().length)];
     }
 
-    private void moveProductsToShop(Storage stock, Storage shop) {
-        Iterator<Map.Entry<ProductType, Uncountable>> iUc = stock.getUncountableMap().entrySet().iterator();
-        while (iUc.hasNext()) {
-            Map.Entry<ProductType, Uncountable> entry = iUc.next();
+    private void moveProductsToShop(Supermarket supermarket) {
+        Storage stock = supermarket.getStock();
+        Storage shop = supermarket.getShop();
+        for (Map.Entry<ProductType, Uncountable> entry : stock.getUncountableMap().entrySet()) {
             Uncountable description;
             Uncountable value = entry.getValue();
             ProductType key = entry.getKey();
