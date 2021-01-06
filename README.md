@@ -1,5 +1,5 @@
 # OOP2020_G41_Task7
-**Supermarket
+**Supermarket**
 
 Leaving the idea of using classes descriptioning goods. Better idea: get Enum with string of products, then create two classes like "Description".
 Transmit there all characteristics for countable and uncountable goods. Maybe make several enums, and for any create method like "get expiration days".
@@ -16,8 +16,8 @@ Talking about Stock and ShoppingRoom. The difference is the Queue of customers, 
 Stock: Map/Set <enum, description>;
 ShoppingRoom: Set<enum, description>; Queue <Customers>;
 
-**NEW: finished with the original project, finished GSON-serialization; reformatted switch-cases in ProductService and EventService. Used Consumers and labmda-expressions.
+**NEW:** finished with the original project, finished GSON-serialization; reformatted switch-cases in ProductService and EventService. Used Consumers and labmda-expressions.
 
-ToDo: 
+**ToDo:**
 1. multithreading for pretty output (yeah, just like that)
 2. fix some bugs
