@@ -21,3 +21,6 @@ ShoppingRoom: Set<enum, description>; Queue <Customers>;
 **ToDo:**
 1. multithreading for pretty output (yeah, just like that)
 2. fix some bugs
+
+
+**Additional task:** hand-made HashSet&HashMultiSet, make a library from classes and tail it with maven dependency to the original project.
