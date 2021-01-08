@@ -30,18 +30,29 @@ public class Node<K, V> {
         return oldValue;
     }
 
-    public boolean equals(Object o) {
-        if (o == this)
-            return true;
-        if (o instanceof Node) {
-            Node<?, ?> n = (Node<?, ?>) o;
-            return Objects.equals(this.key, n.getKey()) &&
-                    Objects.equals(this.value, n.getValue());
-        }
-        return false;
-    }
-
     public int getHash() {
         return this.hash;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Node<?, ?> node = (Node<?, ?>) o;
+        return hash == node.hash &&
+                Objects.equals(key, node.key);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(key);
+    }
+
+    public Node<K, V> getNext() {
+        return next;
+    }
+
+    public void setNext(Node<K, V> next) {
+        this.next = next;
     }
 }
