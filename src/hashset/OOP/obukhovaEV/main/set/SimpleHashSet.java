@@ -45,6 +45,7 @@ public class SimpleHashSet<T> implements ISet<T> {
 
         if (table[index] == null) {
             table[index] = newElement;
+            ++filled;
         } else {
             Node<T, Object> oldElement = table[index];
             while (oldElement.getNext() != null) {
@@ -56,6 +57,7 @@ public class SimpleHashSet<T> implements ISet<T> {
             if (!oldElement.equals(newElement)) {
                 oldElement.setNext(newElement);
                 modified = true;
+                ++filled;
             }
         }
         return modified;
@@ -70,11 +72,13 @@ public class SimpleHashSet<T> implements ISet<T> {
         Node<T, Object> currElement = table[index];
         T currKey = currElement.getKey();
         while (currElement != null) {
-            if (hash == currElement.getHash() &&
-                    Objects.equals(element, currKey)) {
+            if (hash == currElement.getHash() && Objects.equals(element, currKey)) {
                 if (currElement.getNext() != null)
                     table[index] = currElement.getNext();
-                else table[index] = null;
+                else {
+                    table[index] = null;
+                    --filled;
+                }
                 modified = true;
                 // is it really necessary?
                 break;
@@ -104,16 +108,17 @@ public class SimpleHashSet<T> implements ISet<T> {
     @Override
     public void clear() {
         table = (Node<T, Object>[]) new Node[16];
+        filled = 0;
     }
 
     /**
      * Returns the number of unique elements in this {@link SimpleHashSet}
      *
-     * @return size of {@link SimpleHashSet}
+     * @return number of elements in {@link SimpleHashSet}
      */
     @Override
     public int size() {
-        return table.length;
+        return filled;
     }
 
     /**
@@ -123,7 +128,7 @@ public class SimpleHashSet<T> implements ISet<T> {
      */
     @Override
     public boolean isEmpty() {
-        return table.length > 0;
+        return filled > 0;
     }
 
     private void resizeTable() {
