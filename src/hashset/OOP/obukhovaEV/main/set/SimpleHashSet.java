@@ -1,5 +1,7 @@
 package hashset.OOP.obukhovaEV.main.set;
 
+import hashset.OOP.obukhovaEV.main.Node;
+
 import java.util.Arrays;
 import java.util.Objects;
 
