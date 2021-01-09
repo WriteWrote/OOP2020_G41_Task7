@@ -17,10 +17,10 @@ public class Main {
         mySet.add("B");
         mySet.add("S");
         mySet.add("Ab");
-        mySet.add("Bad");
+        mySet.add("Bc");
 
-        mySet.remove("S");
-        mySet.remove("A");
-        mySet.remove("Bad");
+        //mySet.remove("S");
+        mySet.remove("Ab");
+        //mySet.remove("Bс");
     }
 }

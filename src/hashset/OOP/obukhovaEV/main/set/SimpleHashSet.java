@@ -70,30 +70,40 @@ public class SimpleHashSet<T> implements ISet<T> {
 
     @Override
     public boolean remove(T element) {
+        int n = 0;
         boolean modified = false;
         int hash = element.hashCode();
         int index = index(hash);
+        if (this.contains(element)) {
+            Node<T, Object> currElement = table[index];
 
-        Node<T, Object> currElement = table[index];
-        T currKey = currElement.getKey();
-        while (currElement != null) {
-            // if keys are equal
-            if (hash == currElement.getHash() && Objects.equals(element, currKey)) {
-                // if there are next elements
-                if (currElement.getNext() != null)
-                    table[index] = currElement.getNext();
-                else {
-                    // if there are no next elements in linked list, delete basket AND element
-                    table[index] = null;
+            while (currElement != null) {
+                if (hash == currElement.getHash() && Objects.equals(element, currElement.getKey())) {
+                    /*
+                    if (currElement.getNext() != null) {
+                        // there is the problem too
+                        table[index] = currElement.getNext();
+                    } else {
+                    */
+                    if (table[index].getNext() == null) {
+                        table[index] = null;
+                        --filledBaskets;
+                    } else {
+                        Node<T, Object> buff = table[index];
+                        for (int i = 0; i < n - 1; i++) {
+                            buff = buff.getNext();
+                        }
+                        buff.setNext(buff.getNext().getNext());
+                    }
                     --numberOfElements;
-                    --filledBaskets;
+                    // }
+                    modified = true;
+                    // is it really necessary?
+                    break;
+                } else {
+                    currElement = currElement.getNext();
+                    ++n;
                 }
-                modified = true;
-                // is it really necessary?
-                break;
-            } else {
-                // if keys are not equal, search for next element
-                currElement = currElement.getNext();
             }
         }
         return modified;
