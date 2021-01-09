@@ -2,13 +2,24 @@ package hashset.OOP.obukhovaEV.main.set;
 
 public interface IMultiSet<T> extends ISet<T> {
     /**
+     * Adds a number of occurrences of an element to this {@link IMultiSet}
+     *
+     * @param element     element
+     * @param occurrences number of occurrences
+     * @return always true
+     */
+    boolean add(T element, int occurrences);
+
+    /**
      * Returns a number of unique elements in this {@link IMultiSet<T>}
+     *
      * @return number of unique elements
      */
     int numberOfUniqueElements();
 
     /**
-     * Returns a number, how much element presents in this {@link IMultiSet<T>}
+     * Returns a number, how much exemplars of this element presents in this {@link IMultiSet<T>}
+     *
      * @param element - testing element
      * @return multiplicity
      */

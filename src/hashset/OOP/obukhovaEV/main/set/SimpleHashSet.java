@@ -33,11 +33,6 @@ public class SimpleHashSet<T> implements ISet<T> {
     @Override
     public boolean add(T element) {
         boolean modified = false;
-        /*int n = (int) (table.length * LOAD_FACTOR);
-        if (table[n] != null) {
-            resizeTable();
-        }
-         */
         if (filledBaskets >= (table.length * LOAD_FACTOR)) {
             resizeTable();
         }
@@ -79,29 +74,17 @@ public class SimpleHashSet<T> implements ISet<T> {
 
             while (currElement != null) {
                 if (hash == currElement.getHash() && Objects.equals(element, currElement.getKey())) {
-                    /*
-                    if (currElement.getNext() != null) {
-                        // there is the problem too
-                        table[index] = currElement.getNext();
-                    } else {
-                    */
-
-                    if (table[index].getNext() == null) {
-                        table[index] = null;
+                    if (n == 0) {
+                        table[index] = table[index].getNext();
                         --filledBaskets;
                     } else {
-                        if (n == 0) {
-                            table[index] = table[index].getNext();
-                        } else {
-                            Node<T, Object> buff = table[index];
-                            for (int i = 0; i < n - 1; i++) {
-                                buff = buff.getNext();
-                            }
-                            buff.setNext(buff.getNext().getNext());
+                        Node<T, Object> buff = table[index];
+                        for (int i = 0; i < n - 1; i++) {
+                            buff = buff.getNext();
                         }
+                        buff.setNext(buff.getNext().getNext());
                     }
                     --numberOfElements;
-                    // }
                     modified = true;
                     // is it really necessary?
                     break;
@@ -154,7 +137,7 @@ public class SimpleHashSet<T> implements ISet<T> {
      */
     @Override
     public boolean isEmpty() {
-        return numberOfElements > 0;
+        return numberOfElements == 0;
     }
 
     private void resizeTable() {
