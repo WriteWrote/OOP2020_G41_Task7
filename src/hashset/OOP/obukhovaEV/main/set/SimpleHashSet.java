@@ -8,21 +8,25 @@ public class SimpleHashSet<T> implements ISet<T> {
     private final double LOAD_FACTOR;
     private final int DEF_CAPACITY;
     private static final Object VALUE = new Object();
-    private int filled = 0;
+    private int numberOfElements = 0;
+    private int filledBaskets = 0;
 
     public SimpleHashSet() {
         this.LOAD_FACTOR = .75;
         this.DEF_CAPACITY = 16;
+        table = (Node<T, Object>[]) new Node[DEF_CAPACITY];
     }
 
     public SimpleHashSet(double LOAD_FACTOR) {
         this.LOAD_FACTOR = LOAD_FACTOR;
         this.DEF_CAPACITY = 16;
+        table = (Node<T, Object>[]) new Node[DEF_CAPACITY];
     }
 
     public SimpleHashSet(double LOAD_FACTOR, int DEF_CAPACITY) {
         this.LOAD_FACTOR = LOAD_FACTOR;
         this.DEF_CAPACITY = DEF_CAPACITY;
+        table = (Node<T, Object>[]) new Node[DEF_CAPACITY];
     }
 
 
@@ -34,7 +38,7 @@ public class SimpleHashSet<T> implements ISet<T> {
             resizeTable();
         }
          */
-        if (filled >= (table.length * LOAD_FACTOR)) {
+        if (filledBaskets >= (table.length * LOAD_FACTOR)) {
             resizeTable();
         }
 
@@ -45,7 +49,8 @@ public class SimpleHashSet<T> implements ISet<T> {
 
         if (table[index] == null) {
             table[index] = newElement;
-            ++filled;
+            ++numberOfElements;
+            ++filledBaskets;
         } else {
             Node<T, Object> oldElement = table[index];
             while (oldElement.getNext() != null) {
@@ -57,7 +62,7 @@ public class SimpleHashSet<T> implements ISet<T> {
             if (!oldElement.equals(newElement)) {
                 oldElement.setNext(newElement);
                 modified = true;
-                ++filled;
+                ++numberOfElements;
             }
         }
         return modified;
@@ -72,17 +77,22 @@ public class SimpleHashSet<T> implements ISet<T> {
         Node<T, Object> currElement = table[index];
         T currKey = currElement.getKey();
         while (currElement != null) {
+            // if keys are equal
             if (hash == currElement.getHash() && Objects.equals(element, currKey)) {
+                // if there are next elements
                 if (currElement.getNext() != null)
                     table[index] = currElement.getNext();
                 else {
+                    // if there are no next elements in linked list, delete basket AND element
                     table[index] = null;
-                    --filled;
+                    --numberOfElements;
+                    --filledBaskets;
                 }
                 modified = true;
                 // is it really necessary?
                 break;
             } else {
+                // if keys are not equal, search for next element
                 currElement = currElement.getNext();
             }
         }
@@ -108,7 +118,8 @@ public class SimpleHashSet<T> implements ISet<T> {
     @Override
     public void clear() {
         table = (Node<T, Object>[]) new Node[16];
-        filled = 0;
+        numberOfElements = 0;
+        filledBaskets = 0;
     }
 
     /**
@@ -118,7 +129,7 @@ public class SimpleHashSet<T> implements ISet<T> {
      */
     @Override
     public int size() {
-        return filled;
+        return numberOfElements;
     }
 
     /**
@@ -128,7 +139,7 @@ public class SimpleHashSet<T> implements ISet<T> {
      */
     @Override
     public boolean isEmpty() {
-        return filled > 0;
+        return numberOfElements > 0;
     }
 
     private void resizeTable() {
