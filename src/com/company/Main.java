@@ -2,6 +2,8 @@ package com.company;
 
 import com.company.events.EventService;
 import com.google.gson.Gson;
+import hashset.OOP.obukhovaEV.main.set.ISet;
+import hashset.OOP.obukhovaEV.main.set.SimpleHashSet;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -11,6 +13,13 @@ public class Main {
 
     public static void main(String[] args) throws InterruptedException {
         System.out.println("Hello world! Starting work");
+
+        ISet<String> testSet = new SimpleHashSet<>();
+        testSet.add("test");
+        testSet.add("test2");
+        testSet.remove("test2");
+        testSet.clear();
+
         Supermarket supermarket;
         //supermarket = new Supermarket();
         EventService service = new EventService();

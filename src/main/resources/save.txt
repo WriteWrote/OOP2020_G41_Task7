@@ -6,81 +6,72 @@
         "productType": "SEAFOOD",
         "price": 556,
         "partialWeight": 3,
-        "quantity": 43,
-        "expirationDays": 59,
-        "isDiscounted": false
+        "quantity": 13,
+        "expirationDays": 59
       },
       "MILK": {
         "name": "MILK",
         "productType": "MILK",
         "price": 618,
         "partialWeight": 3,
-        "quantity": 139,
-        "expirationDays": 9,
-        "isDiscounted": false
+        "quantity": 109,
+        "expirationDays": 9
       },
       "FISH": {
         "name": "FISH",
         "productType": "FISH",
         "price": 326,
         "partialWeight": 2,
-        "quantity": 11,
-        "expirationDays": 89,
-        "isDiscounted": false
+        "quantity": 0,
+        "expirationDays": 89
       },
       "DRINK": {
         "name": "DRINK",
         "productType": "DRINK",
         "price": 421,
         "partialWeight": 1,
-        "quantity": 34,
-        "expirationDays": 20,
-        "isDiscounted": false
+        "quantity": 4,
+        "expirationDays": 20
       },
       "SPICES": {
         "name": "SPICES",
         "productType": "SPICES",
         "price": 71,
         "partialWeight": 5,
-        "quantity": 30,
-        "expirationDays": 364,
-        "isDiscounted": false
+        "quantity": 0,
+        "expirationDays": 364
       },
       "TOILETRY": {
         "name": "TOILETRY",
         "productType": "TOILETRY",
         "price": 61,
         "partialWeight": 5,
-        "quantity": 62,
-        "expirationDays": 3649,
-        "isDiscounted": false
+        "quantity": 32,
+        "expirationDays": 3649
       },
       "CLOTHES": {
         "name": "CLOTHES",
         "productType": "CLOTHES",
         "price": 839,
         "partialWeight": 3,
-        "quantity": 111,
-        "expirationDays": 3649,
-        "isDiscounted": false
+        "quantity": 81,
+        "expirationDays": 3649
       },
       "PAPERS": {
         "name": "PAPERS",
         "productType": "PAPERS",
         "price": 448,
         "partialWeight": 2,
-        "quantity": 63,
-        "expirationDays": 3649,
-        "isDiscounted": false
+        "quantity": 33,
+        "expirationDays": 3649
       },
       "ALCOHOL": {
         "name": "ALCOHOL",
         "productType": "ALCOHOL",
         "price": 689,
         "partialWeight": 3,
-        "quantity": 156,
-        "expirationDays": 3649,
-        "isDiscounted": false
+        "quantity": 126,
+        "expirationDays": 3649
       }
     },
     "uncountable products": {
@@ -89,56 +80,49 @@
         "productType": "FISH",
         "price": 450,
         "weight": 0,
-        "expirationDays": 89,
-        "isDiscounted": false
+        "expirationDays": 89
       },
       "DRINK": {
         "name": "DRINK",
         "productType": "DRINK",
         "price": 374,
-        "weight": 35,
-        "expirationDays": 19,
-        "isDiscounted": false
+        "weight": 5,
+        "expirationDays": 19
       },
       "SWEETIES": {
         "name": "SWEETIES",
         "productType": "SWEETIES",
         "price": 819,
-        "weight": 92,
-        "expirationDays": 13,
-        "isDiscounted": false
+        "weight": 62,
+        "expirationDays": 13
       },
       "SPICES": {
         "name": "SPICES",
         "productType": "SPICES",
         "price": 579,
         "weight": 0,
-        "expirationDays": 363,
-        "isDiscounted": false
+        "expirationDays": 363
       },
       "ALCOHOL": {
         "name": "ALCOHOL",
         "productType": "ALCOHOL",
         "price": 924,
-        "weight": 119,
-        "expirationDays": 3649,
-        "isDiscounted": false
+        "weight": 89,
+        "expirationDays": 3649
       },
       "MEAT": {
         "name": "MEAT",
         "productType": "MEAT",
         "price": 808,
-        "weight": 139,
-        "expirationDays": 29,
-        "isDiscounted": false
+        "weight": 109,
+        "expirationDays": 29
       },
       "SAUSAGE": {
         "name": "SAUSAGE",
         "productType": "SAUSAGE",
         "price": 92,
-        "weight": 49,
-        "expirationDays": 29,
-        "isDiscounted": false
+        "weight": 19,
+        "expirationDays": 29
       }
     }
   },
@@ -149,45 +133,40 @@
         "productType": "SEAFOOD",
         "price": 664,
         "partialWeight": 3,
-        "quantity": 143,
-        "expirationDays": 58,
-        "isDiscounted": false
+        "quantity": 173,
+        "expirationDays": 58
       },
       "MILK": {
         "name": "MILK",
         "productType": "MILK",
         "price": 115,
         "partialWeight": 3,
-        "quantity": 92,
-        "expirationDays": 8,
-        "isDiscounted": true
+        "quantity": 122,
+        "expirationDays": 8
       },
       "PAPERS": {
         "name": "PAPERS",
         "productType": "PAPERS",
         "price": 167,
         "partialWeight": 4,
-        "quantity": 58,
-        "expirationDays": 3648,
-        "isDiscounted": false
+        "quantity": 88,
+        "expirationDays": 3648
       },
       "FISH": {
         "name": "FISH",
         "productType": "FISH",
         "price": 802,
         "partialWeight": 1,
-        "quantity": 74,
-        "expirationDays": 88,
-        "isDiscounted": false
+        "quantity": 85,
+        "expirationDays": 88
       },
       "ALCOHOL": {
         "name": "ALCOHOL",
         "productType": "ALCOHOL",
         "price": 177,
         "partialWeight": 5,
-        "quantity": 52,
-        "expirationDays": 3648,
-        "isDiscounted": false
+        "quantity": 82,
+        "expirationDays": 3648
       },
       "SAUSAGE": {
         "name": "SAUSAGE",
@@ -195,17 +174,15 @@
         "price": 635,
         "partialWeight": 5,
         "quantity": 27,
-        "expirationDays": 28,
-        "isDiscounted": false
+        "expirationDays": 28
       },
       "DRINK": {
         "name": "DRINK",
         "productType": "DRINK",
         "price": 11,
         "partialWeight": 1,
-        "quantity": 118,
-        "expirationDays": 19,
-        "isDiscounted": false
+        "quantity": 148,
+        "expirationDays": 19
       },
       "SWEETIES": {
         "name": "SWEETIES",
@@ -213,26 +190,23 @@
         "price": 109,
         "partialWeight": 1,
         "quantity": 68,
-        "expirationDays": 12,
-        "isDiscounted": true
+        "expirationDays": 12
       },
       "SPICES": {
         "name": "SPICES",
         "productType": "SPICES",
         "price": 4,
         "partialWeight": 4,
-        "quantity": 70,
-        "expirationDays": 363,
-        "isDiscounted": false
+        "quantity": 100,
+        "expirationDays": 363
       },
       "TOILETRY": {
         "name": "TOILETRY",
         "productType": "TOILETRY",
         "price": 758,
         "partialWeight": 2,
-        "quantity": 129,
-        "expirationDays": 3648,
-        "isDiscounted": false
+        "quantity": 159,
+        "expirationDays": 3648
       },
       "MEAT": {
         "name": "MEAT",
@@ -240,17 +214,15 @@
         "price": 72,
         "partialWeight": 5,
         "quantity": 0,
-        "expirationDays": 29,
-        "isDiscounted": false
+        "expirationDays": 29
       },
       "CLOTHES": {
         "name": "CLOTHES",
         "productType": "CLOTHES",
         "price": 546,
         "partialWeight": 5,
-        "quantity": 60,
-        "expirationDays": 3649,
-        "isDiscounted": false
+        "quantity": 90,
+        "expirationDays": 3649
       }
     },
     "uncountable products": {
@@ -259,87 +231,84 @@
         "productType": "SEAFOOD",
         "price": 231,
         "weight": 62,
-        "expirationDays": 58,
-        "isDiscounted": false
+        "expirationDays": 58
       },
       "FISH": {
         "name": "FISH",
         "productType": "FISH",
         "price": 221,
         "weight": 65,
-        "expirationDays": 88,
-        "isDiscounted": false
+        "expirationDays": 88
       },
       "ALCOHOL": {
         "name": "ALCOHOL",
         "productType": "ALCOHOL",
         "price": 731,
-        "weight": 71,
-        "expirationDays": 3648,
-        "isDiscounted": false
+        "weight": 101,
+        "expirationDays": 3648
       },
       "CLOTHES": {
         "name": "CLOTHES",
         "productType": "CLOTHES",
         "price": 800,
         "weight": 28,
-        "expirationDays": 3648,
-        "isDiscounted": false
+        "expirationDays": 3648
       },
       "CHEESE": {
         "name": "CHEESE",
         "productType": "CHEESE",
         "price": 61,
         "weight": 53,
-        "expirationDays": 38,
-        "isDiscounted": true
+        "expirationDays": 38
       },
       "DRINK": {
         "name": "DRINK",
         "productType": "DRINK",
         "price": 48,
-        "weight": 150,
-        "expirationDays": 19,
-        "isDiscounted": true
+        "weight": 180,
+        "expirationDays": 19
       },
       "SAUSAGE": {
         "name": "SAUSAGE",
         "productType": "SAUSAGE",
         "price": 108,
-        "weight": 59,
-        "expirationDays": 28,
-        "isDiscounted": true
+        "weight": 89,
+        "expirationDays": 28
       },
       "SWEETIES": {
         "name": "SWEETIES",
         "productType": "SWEETIES",
         "price": 31,
-        "weight": 150,
-        "expirationDays": 12,
-        "isDiscounted": true
+        "weight": 180,
+        "expirationDays": 12
       },
       "SPICES": {
         "name": "SPICES",
         "productType": "SPICES",
         "price": 579,
         "weight": 112,
-        "expirationDays": 363,
-        "isDiscounted": false
+        "expirationDays": 363
       },
       "TOILETRY": {
         "name": "TOILETRY",
         "productType": "TOILETRY",
         "price": 726,
         "weight": 33,
-        "expirationDays": 3648,
-        "isDiscounted": false
+        "expirationDays": 3648
+      },
+      "MEAT": {
+        "name": "MEAT",
+        "productType": "MEAT",
+        "price": 808,
+        "weight": 30,
+        "expirationDays": 29
       }
     }
   },
   "customers queue": [],
   "planned events": [
-    "MOVE_TO_SHOP",
     "PRICE_FALL",
-    "NEW_CUSTOMER"
+    "NEW_CUSTOMER",
+    "ADMISSION"
   ]
 }

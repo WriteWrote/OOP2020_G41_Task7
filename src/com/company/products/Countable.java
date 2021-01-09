@@ -4,7 +4,7 @@ public class Countable {
     private String name;
     private ProductType productType;
     private int price, partialWeight, quantity, expirationDays;
-    private boolean isDiscounted = false;
+    transient private boolean isDiscounted = false;
 
     public Countable(String name, ProductType productType, int price, int partialWeight, int quantity, int expirationDays) {
         this.name = name;

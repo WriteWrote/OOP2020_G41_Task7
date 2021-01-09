@@ -4,7 +4,7 @@ public class Uncountable {
     private String name;
     private ProductType productType;
     private int price, weight, expirationDays;
-    private boolean isDiscounted;
+    transient private boolean isDiscounted;
 
     public Uncountable(String name, ProductType productType, int price, int weight, int expirationDays) {
         this.name = name;
