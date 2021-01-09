@@ -85,15 +85,20 @@ public class SimpleHashSet<T> implements ISet<T> {
                         table[index] = currElement.getNext();
                     } else {
                     */
+
                     if (table[index].getNext() == null) {
                         table[index] = null;
                         --filledBaskets;
                     } else {
-                        Node<T, Object> buff = table[index];
-                        for (int i = 0; i < n - 1; i++) {
-                            buff = buff.getNext();
+                        if (n == 0) {
+                            table[index] = table[index].getNext();
+                        } else {
+                            Node<T, Object> buff = table[index];
+                            for (int i = 0; i < n - 1; i++) {
+                                buff = buff.getNext();
+                            }
+                            buff.setNext(buff.getNext().getNext());
                         }
-                        buff.setNext(buff.getNext().getNext());
                     }
                     --numberOfElements;
                     // }

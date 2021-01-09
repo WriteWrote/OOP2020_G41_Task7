@@ -3,9 +3,7 @@ package hashset.OOP.obukhovaEV.main;
 import hashset.OOP.obukhovaEV.main.set.ISet;
 import hashset.OOP.obukhovaEV.main.set.SimpleHashSet;
 
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Locale;
 import java.util.Set;
 
 public class Main {
@@ -19,8 +17,8 @@ public class Main {
         mySet.add("Ab");
         mySet.add("Bc");
 
-        //mySet.remove("S");
         mySet.remove("Ab");
-        //mySet.remove("Bс");
+        mySet.remove("S");
+        mySet.remove("Bc");
     }
 }
