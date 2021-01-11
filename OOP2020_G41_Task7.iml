@@ -13,6 +13,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Maven: com.google.code.gson:gson:2.8.6" level="project" />
-    <orderEntry type="library" name="HashSetUtils_OOP" level="project" />
+    <orderEntry type="library" name="HashSet2_OOP_jar" level="project" />
   </component>
 </module>

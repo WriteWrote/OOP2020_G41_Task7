@@ -2,6 +2,8 @@ package com.company;
 
 import com.company.events.EventService;
 import com.google.gson.Gson;
+import hashset.OOP.obukhovaEV.main.multiset.IMultiSet;
+import hashset.OOP.obukhovaEV.main.multiset.SimpleHashMultiSet;
 import hashset.OOP.obukhovaEV.main.set.ISet;
 import hashset.OOP.obukhovaEV.main.set.SimpleHashSet;
 
@@ -19,9 +21,14 @@ public class Main {
         testSet.add("test2");
         testSet.remove("test2");
         testSet.clear();
+        IMultiSet<String> testMultiSet = new SimpleHashMultiSet<>();
+        testMultiSet.add("a",5);
+        testMultiSet.add("d");
+        testMultiSet.add("d");
+        testMultiSet.add("s");
+        testSet = testMultiSet.toSet();
 
         Supermarket supermarket;
-        //supermarket = new Supermarket();
         EventService service = new EventService();
         try (FileReader reader = new FileReader("./src/main/resources/save.txt")) {
             Scanner scn = new Scanner(reader);
@@ -30,7 +37,9 @@ public class Main {
             ) {
                 text.append(scn.nextLine());
             }
-            supermarket = new Gson().fromJson(String.valueOf(text), Supermarket.class);
+            if (!"".contentEquals(text))
+                supermarket = new Gson().fromJson(String.valueOf(text), Supermarket.class);
+            else supermarket = new Supermarket();
             service.runSupermarket(supermarket);
         } catch (IOException | InterruptedException ex) {
             ex.printStackTrace();
